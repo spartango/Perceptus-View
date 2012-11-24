@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Modest Maps JS</title>
+    <script src='wax/ext/modestmaps.min.js' type='text/javascript'></script>
+    <script src='wax/dist/wax.mm.js' type='text/javascript'></script>
+    <link href='wax/theme/controls.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+<div id='modestmaps-setup'></div>
+<script type='text/javascript'>
+var tilejson = {
+  tilejson: '1.0.0',
+  scheme: 'xyz',
+  tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}']
+  // tiles: ['http://a.tiles.mapbox.com/mapbox/1.0.0/world-light/{z}/{x}/{y}.png']
+};
+var mm = com.modestmaps;
+// Set up a map in a div with the id 'modestmaps-setup'
+var m = new mm.Map('modestmaps-setup',
+  // Use Wax's connector to add a new custom layer
+  new wax.mm.connector(tilejson),
+  // And it'll be 240px by 120px
+  new mm.Point(256,256));
+
+// Center it on the United States, at zoom level 2.
+m.setCenterZoom(new mm.Location(39, -98), 2);
+</script>
+
+</body>
+</html>

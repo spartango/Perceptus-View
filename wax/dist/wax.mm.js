@@ -3395,13 +3395,13 @@ wax.mm.boxselector = function() {
     }
 
     function mouseUp(e) {
+        enabled = false;
         var point = getMousePoint(e),
             l1 = map.pointLocation( new MM.Point(
                 horizontal ? point.x : nearCorner.x,
                 vertical? point.y : nearCorner.y
             ));
             l2 = map.pointLocation(corner);
-
         // Format coordinates like mm.map.getExtent().
         boxselector.extent([
             new MM.Location(
@@ -3414,7 +3414,6 @@ wax.mm.boxselector = function() {
 
         removeEvent(document, 'mousemove', mouseMove);
         removeEvent(document, 'mouseup', mouseUp);
-
         map.parent.style.cursor = 'auto';
         displayExtent(boxselector.extent());
     }
@@ -3455,9 +3454,7 @@ wax.mm.boxselector = function() {
         style.left = Math.max(0, tl.x) + 'px';
         style.right = Math.max(0, map.dimensions.x - br.x) + 'px';
         style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
-        // style.width = (Math.min(map.dimensions.x, br.x) - Math.max(0, tl.x)) + 'px';
         style.top = Math.max(0, tl.y) + 'px';
-        // style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
     }
 
     boxselector.addCallback = function(event, callback) {
@@ -3492,7 +3489,7 @@ wax.mm.boxselector = function() {
     style = boxDiv.style;
 
     boxselector.add = function() {
-        boxDiv.id = map.parent.id + '-boxselector-box';
+        boxDiv.id = map.parent.id + '-boxselector-box' + Math.random().toString(36);
         map.parent.appendChild(boxDiv);
         borderWidth = parseInt(window.getComputedStyle(boxDiv).borderWidth, 10);
 

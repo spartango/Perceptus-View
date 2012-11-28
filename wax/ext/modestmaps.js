@@ -965,7 +965,7 @@ var MM = com.modestmaps = {
             map;
 
         function mouseDown(e) {
-            if (e.shiftKey || e.button == 2) return;
+            if (e.shiftKey || e.button == 2 || !map.scrollingEnabled) return;
             MM.addEvent(document, 'mouseup', mouseUp);
             MM.addEvent(document, 'mousemove', mouseMove);
 
@@ -2124,6 +2124,8 @@ var MM = com.modestmaps = {
 
         autoSize: null,        // Boolean, true if we have a window resize listener
 
+        scrollingEnabled: true, // Boolean, true if scrolling is allowed
+
         toString: function() {
             return 'Map(#' + this.parent.id + ')';
         },
@@ -2391,6 +2393,18 @@ var MM = com.modestmaps = {
             } else {
                 return this.getZoom();
             }
+        },
+
+        enableScrolling: function() {
+            this.scrollingEnabled = true;
+        },
+
+        toggleScrolling: function() {
+            this.scrollingEnabled = !scrollingEnabled;
+        },
+
+        disableScrolling: function() {
+            this.scrollingEnabled = false;
         },
 
         // return a copy of the layers array

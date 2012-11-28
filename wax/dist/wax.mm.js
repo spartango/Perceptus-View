@@ -3394,7 +3394,7 @@ wax.mm.boxselector = function() {
     }
 
     function mouseUp(e) {
-        enabled = false;
+        boxselector.disable();
         var point = getMousePoint(e),
             l1 = map.pointLocation( new MM.Point(
                 horizontal ? point.x : nearCorner.x,
@@ -3501,14 +3501,17 @@ wax.mm.boxselector = function() {
 
     boxselector.enable = function() {
         enabled = true;
+        map.disableScrolling();
     };
 
     boxselector.disable = function () {
         enabled = false;
+        map.enableScrolling();
     }
 
     boxselector.toggleEnabled = function () {
         enabled = !enabled;
+        map.toggleScrolling();
     }
 
 

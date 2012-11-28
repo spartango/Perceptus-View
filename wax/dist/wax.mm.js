@@ -3299,6 +3299,7 @@ wax.mm = wax.mm || {};
 
 wax.mm.boxselector = function() {
     var corner,
+        enabled = false,
         nearCorner,
         boxDiv,
         style,
@@ -3331,7 +3332,7 @@ wax.mm.boxselector = function() {
     }
 
     function mouseDown(e) {
-        if (!e.shiftKey) return;
+        if (!enabled) return;
 
         corner = nearCorner = getMousePoint(e);
         horizontal = vertical = true;
@@ -3501,6 +3502,19 @@ wax.mm.boxselector = function() {
         map.addCallback('drawn', drawbox);
         return boxselector;
     };
+
+    boxselector.enable = function() {
+        enabled = true;
+    };
+
+    boxselector.disable = function () {
+        enabled = false;
+    }
+
+    boxselector.toggleEnabled = function () {
+        enabled = !enabled;
+    }
+
 
     boxselector.map = function(x) {
         if (!arguments.length) return map;

@@ -3454,6 +3454,9 @@ wax.mm.boxselector = function() {
         style.top = Math.max(0, tl.y) + 'px';
         style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
         style.position = 'relative';
+        style.zIndex = '500';
+        style.borderStyle = 'solid';
+        style.borderColor = 'red';
     }
 
     boxselector.addCallback = function(event, callback) {

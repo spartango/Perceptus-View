@@ -3395,6 +3395,7 @@ wax.mm.boxselector = function() {
     }
 
     function mouseUp(e) {
+        enabled = false;
         var point = getMousePoint(e),
             l1 = map.pointLocation( new MM.Point(
                 horizontal ? point.x : nearCorner.x,
@@ -3414,7 +3415,6 @@ wax.mm.boxselector = function() {
 
         removeEvent(document, 'mousemove', mouseMove);
         removeEvent(document, 'mouseup', mouseUp);
-
         map.parent.style.cursor = 'auto';
         displayExtent(boxselector.extent());
     }
@@ -3457,7 +3457,7 @@ wax.mm.boxselector = function() {
         style.position = 'relative';
         style.zIndex = '500';
         style.borderStyle = 'solid';
-        style.borderColor = 'red';
+        style.borderColor = 'green';
     }
 
     boxselector.addCallback = function(event, callback) {
@@ -3492,7 +3492,7 @@ wax.mm.boxselector = function() {
     style = boxDiv.style;
 
     boxselector.add = function() {
-        boxDiv.id = map.parent.id + '-boxselector-box';
+        boxDiv.id = map.parent.id + '-boxselector-box' + Math.random().toString(36);
         map.parent.appendChild(boxDiv);
         borderWidth = parseInt(window.getComputedStyle(boxDiv).borderWidth, 10);
 

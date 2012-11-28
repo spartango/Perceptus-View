@@ -14,21 +14,33 @@
     <div id='controls'>
         <div id='boxselector-text'></div>
         <div id='draw-toggle'> 
-            <button class="btn btn-primary" type="button" onClick="boxselector.toggleEnabled()">Enable</button>
+            <button class="btn btn-primary" type="button" onClick="createBoxSelector()">Draw</button>
         </div>
     </div>
     <script type='text/javascript'>
+        var boxselector;
+
+        function createBoxSelector() {
+            boxselector = new wax.mm.boxselector();
+            boxselector.map(m);
+            boxselector.enable();
+            boxselector.add();
+        }
+
         function displayExtent(coords) {
             $('#boxselector-text').text(
                 coords.map(function(c) {
                     return '(' + Math.round(c.lat) + ',' + Math.round(c.lon) + ')';
             }).join(', '));
         }
+
         var tilejson = {
           tilejson: '1.0.0',
           scheme: 'xyz',
           tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}'],
         };
+
+        // Setup the map
         var mm = com.modestmaps;
         var layer = new wax.mm.connector(tilejson);
         layer.provider.tileLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
@@ -37,9 +49,7 @@
           new mm.Point(1024,512));
         m.coordLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
         m.setZoom(3);
-        var boxselector = wax.mm.boxselector();
-        boxselector.map(m);
-        boxselector.add();
+
     </script>
     </body>
 </html>

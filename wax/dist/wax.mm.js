@@ -3299,6 +3299,7 @@ wax.mm = wax.mm || {};
 
 wax.mm.boxselector = function() {
     var corner,
+        enabled = false,
         nearCorner,
         boxDiv,
         style,
@@ -3331,7 +3332,7 @@ wax.mm.boxselector = function() {
     }
 
     function mouseDown(e) {
-        if (!e.shiftKey) return;
+        if (!enabled) return;
 
         corner = nearCorner = getMousePoint(e);
         horizontal = vertical = true;
@@ -3358,7 +3359,6 @@ wax.mm.boxselector = function() {
                 x: TL.x + parseInt(boxDiv.offsetWidth, 10),
                 y: TL.y + parseInt(boxDiv.offsetHeight, 10)
             };
-
         // Determine whether resize is horizontal, vertical or both
         horizontal = point.x - TL.x <= edge || BR.x - point.x <= edge;
         vertical = point.y - TL.y <= edge || BR.y - point.y <= edge;
@@ -3394,13 +3394,13 @@ wax.mm.boxselector = function() {
     }
 
     function mouseUp(e) {
+        boxselector.disable();
         var point = getMousePoint(e),
             l1 = map.pointLocation( new MM.Point(
                 horizontal ? point.x : nearCorner.x,
                 vertical? point.y : nearCorner.y
             ));
             l2 = map.pointLocation(corner);
-
         // Format coordinates like mm.map.getExtent().
         boxselector.extent([
             new MM.Location(
@@ -3413,7 +3413,6 @@ wax.mm.boxselector = function() {
 
         removeEvent(document, 'mousemove', mouseMove);
         removeEvent(document, 'mouseup', mouseUp);
-
         map.parent.style.cursor = 'auto';
         displayExtent(boxselector.extent());
     }
@@ -3449,14 +3448,12 @@ wax.mm.boxselector = function() {
             style = boxDiv.style;
 
         style.display = 'block';
+        style.height = 'auto';
+        style.width = 'auto';
         style.left = Math.max(0, tl.x) + 'px';
-        style.width = (Math.min(map.dimensions.x, br.x) - Math.max(0, tl.x)) + 'px';
+        style.right = Math.max(0, map.dimensions.x - br.x) + 'px';
+        style.bottom = Math.max(0, map.dimensions.y - br.y) + 'px';
         style.top = Math.max(0, tl.y) + 'px';
-        style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
-        style.position = 'relative';
-        style.zIndex = '500';
-        style.borderStyle = 'solid';
-        style.borderColor = 'red';
     }
 
     boxselector.addCallback = function(event, callback) {
@@ -3491,7 +3488,7 @@ wax.mm.boxselector = function() {
     style = boxDiv.style;
 
     boxselector.add = function() {
-        boxDiv.id = map.parent.id + '-boxselector-box';
+        boxDiv.id = map.parent.id + '-boxselector-box' + Math.random().toString(36);
         map.parent.appendChild(boxDiv);
         borderWidth = parseInt(window.getComputedStyle(boxDiv).borderWidth, 10);
 
@@ -3501,6 +3498,22 @@ wax.mm.boxselector = function() {
         map.addCallback('drawn', drawbox);
         return boxselector;
     };
+
+    boxselector.enable = function() {
+        enabled = true;
+        map.disableScrolling();
+    };
+
+    boxselector.disable = function () {
+        enabled = false;
+        map.enableScrolling();
+    }
+
+    boxselector.toggleEnabled = function () {
+        enabled = !enabled;
+        map.toggleScrolling();
+    }
+
 
     boxselector.map = function(x) {
         if (!arguments.length) return map;

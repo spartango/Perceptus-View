@@ -3401,7 +3401,6 @@ wax.mm.boxselector = function() {
                 vertical? point.y : nearCorner.y
             ));
             l2 = map.pointLocation(corner);
-            console.log(nearCorner.y);
         // Format coordinates like mm.map.getExtent().
         boxselector.extent([
             new MM.Location(

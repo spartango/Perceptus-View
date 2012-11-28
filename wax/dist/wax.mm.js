@@ -3312,7 +3312,7 @@ wax.mm.boxselector = function() {
         box,
         boxselector = {},
         map,
-        callbackManger = new MM.CallbackManager(boxselector, ['change']);
+        callbackManager = new MM.CallbackManager(boxselector, ['change']);
 
     function getMousePoint(e) {
         // start with just the mouse (x, y)
@@ -3480,8 +3480,7 @@ wax.mm.boxselector = function() {
         ];
 
         drawbox(map);
-
-//        if (!silent) callbackManager.dispatchCallback('change', box);
+        callbackManager.dispatchCallback('change', box);
     };
     boxDiv = document.createElement('div');
     boxDiv.className = 'boxselector-box';

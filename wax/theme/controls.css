@@ -162,11 +162,7 @@
 
 .boxselector-box {
   zIndex:500;
-  border-color:blue;
-}
-
-.boxselector-box-animate {
-
+  border-color:green;
 }
 
 .map-point-div {

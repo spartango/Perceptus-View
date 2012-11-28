@@ -3359,7 +3359,6 @@ wax.mm.boxselector = function() {
                 x: TL.x + parseInt(boxDiv.offsetWidth, 10),
                 y: TL.y + parseInt(boxDiv.offsetHeight, 10)
             };
-
         // Determine whether resize is horizontal, vertical or both
         horizontal = point.x - TL.x <= edge || BR.x - point.x <= edge;
         vertical = point.y - TL.y <= edge || BR.y - point.y <= edge;
@@ -3402,6 +3401,7 @@ wax.mm.boxselector = function() {
                 vertical? point.y : nearCorner.y
             ));
             l2 = map.pointLocation(corner);
+            console.log(nearCorner.y);
         // Format coordinates like mm.map.getExtent().
         boxselector.extent([
             new MM.Location(
@@ -3453,7 +3453,7 @@ wax.mm.boxselector = function() {
         style.width = 'auto';
         style.left = Math.max(0, tl.x) + 'px';
         style.right = Math.max(0, map.dimensions.x - br.x) + 'px';
-        style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
+        style.bottom = Math.max(0, map.dimensions.y - br.y) + 'px';
         style.top = Math.max(0, tl.y) + 'px';
     }
 

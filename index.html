@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Modest Maps JS</title>
-    <script src='wax/ext/modestmaps.min.js' type='text/javascript'></script>
-    <script src='wax/dist/wax.mm.js' type='text/javascript'></script>
-    <link href='wax/theme/controls.css' rel='stylesheet' type='text/css' />
-</head>
-<body>
-<div id='image-map'></div>
-<script type='text/javascript'>
-var tilejson = {
-  tilejson: '1.0.0',
-  scheme: 'xyz',
-  tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}'],
-};
-var mm = com.modestmaps;
-var layer = new wax.mm.connector(tilejson);
-layer.provider.tileLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
-var m = new mm.Map('image-map',
-  layer,
-  new mm.Point(1024,512));
-m.coordLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
-m.setZoom(3);
-</script>
-</body>
+        <title>Test Viewer</title>
+        <script src='wax/ext/modestmaps.min.js' type='text/javascript'></script>
+        <script src='wax/dist/wax.mm.js' type='text/javascript'></script>
+        <link href='wax/theme/controls.css' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+    <div id='image-map'></div>
+        <script type='text/javascript'>
+            var tilejson = {
+              tilejson: '1.0.0',
+              scheme: 'xyz',
+              tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}'],
+            };
+
+            var mm = com.modestmaps;
+            var layer = new wax.mm.connector(tilejson);
+
+            layer.provider.tileLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
+            var m = new mm.Map('image-map',
+              layer,
+              new mm.Point(1024,512));
+            m.coordLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
+            m.setZoom(3);
+
+        </script>
+    </body>
 </html>

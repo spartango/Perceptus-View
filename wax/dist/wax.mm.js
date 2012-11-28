@@ -3450,14 +3450,14 @@ wax.mm.boxselector = function() {
             style = boxDiv.style;
 
         style.display = 'block';
+        style.height = 'auto';
+        style.width = 'auto';
         style.left = Math.max(0, tl.x) + 'px';
-        style.width = (Math.min(map.dimensions.x, br.x) - Math.max(0, tl.x)) + 'px';
-        style.top = Math.max(0, tl.y) + 'px';
+        style.right = Math.max(0, map.dimensions.x - br.x) + 'px';
         style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
-        style.position = 'relative';
-        style.zIndex = '500';
-        style.borderStyle = 'solid';
-        style.borderColor = 'red';
+        // style.width = (Math.min(map.dimensions.x, br.x) - Math.max(0, tl.x)) + 'px';
+        style.top = Math.max(0, tl.y) + 'px';
+        // style.height = (Math.min(map.dimensions.y, br.y) - Math.max(0, tl.y)) + 'px';
     }
 
     boxselector.addCallback = function(event, callback) {

@@ -59,7 +59,18 @@ function onBoxChange(owner, box) {
 function onNewBox(id, box) {
     // Add a new model for this box, associating it with its owner id
     console.log("New box: "+box);
-    boxes[id] = box;
+
+    // Get pixel coordinates
+    var topLeft     = map.locationPoint(box[0]);
+    var bottomRight = map.locationPoint(box[1]);
+    // Build the model
+    var roi = new ROI({ imageId : imageId, 
+                        tag     : 'default', 
+                        x       : topLeft.x,
+                        y       : topLeft.y,
+                        width   : bottomRight.x - topLeft.x,
+                        height  : bottomRight.y - topLeft.y });
+    boxes[id] = roi;
 }
 
 function onBoxUpdate(id, box) {

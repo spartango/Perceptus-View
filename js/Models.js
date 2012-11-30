@@ -17,7 +17,3 @@ ROI = Backbone.Model.extend({
         height: 1
     }
 });
-
-ROICollection = Backbone.Collection.extend({
-    model: ROI
-});

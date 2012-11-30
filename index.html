@@ -7,7 +7,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js' type='text/javascript'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js' type='text/javascript'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js' type='text/javascript'></script>
-
+    <script src='js/Models.js' type='text/javascript'></script>
     <script src='js/Viewer.js' type='text/javascript'></script>
 
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css">
@@ -28,6 +28,8 @@
           scheme: 'xyz',
           tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}'],
         };
+
+        var imageId = "TESTIMAGE123"
 
         initViewer(tilejson);
     </script>

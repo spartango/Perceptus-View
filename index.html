@@ -10,11 +10,12 @@
     <link rel="stylesheet" type="text/css" href="css/boxselector.css" media="screen" />
 </head>
     <body>
-    <div id='image-map'></div>
+    <div id='image-map' style="height: 512px; width: 1024px;"></div>
     <div id='controls'>
         <div id='boxselector-text'></div>
         <div id='draw-toggle'> 
             <button class="btn btn-primary" type="button" onClick="createBoxSelector(); toggleButton();">Draw</button>
+            <button class="btn-next" type="button" onClick="showNextImage(); toggleNextButton();">Next Image</button>
         </div>
     </div>
     <script type='text/javascript'>
@@ -24,6 +25,17 @@
         function toggleButton() {
              $('.btn').toggleClass('btn-success');
              resize = !resize;
+        }
+
+	function showNextImage() {
+            tilejson = {
+              tilejson: '1.0.0',
+              scheme: 'xyz',
+              tiles: ['http://c.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png'],
+//          tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}'],
+            };
+            layer = new wax.mm.connector(tilejson);
+	    m.addLayer(layer);
         }
 
         function callback(owner, box) {
@@ -80,9 +92,8 @@
         var mm = com.modestmaps;
         var layer = new wax.mm.connector(tilejson);
         layer.provider.tileLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
-        var m = new mm.Map('image-map',
-          layer,
-          new mm.Point(1024,512));
+        var m = new mm.Map('image-map');
+        m.addLayer(layer);
         m.coordLimits = [ new mm.Coordinate(0,0,3), new mm.Coordinate(3,7,3) ];
         m.setZoom(3);
 

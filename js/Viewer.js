@@ -71,12 +71,26 @@ function onNewBox(id, box) {
                         width   : bottomRight.x - topLeft.x,
                         height  : bottomRight.y - topLeft.y });
     boxes[id] = roi;
+    roi.save({}, { 
+        success: function(roi) {
+            console.log("Saved "+roi.get("id"));   
+        }
+    });
 }
 
 function onBoxUpdate(id, box) {
     // Find this box
     console.log("Updated box: "+box);
-    boxes[id] = box;
+    var roi = boxes[id];
+    roi.set({x       : topLeft.x,
+             y       : topLeft.y,
+             width   : bottomRight.x - topLeft.x,
+             height  : bottomRight.y - topLeft.y });
+    roi.save({}, { 
+        success: function(roi) {
+            console.log("Updated "+roi.get("id"));   
+        }
+    });
 }
 
 // Creates a new box selector to track a box and its various modifications

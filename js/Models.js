@@ -8,6 +8,7 @@
  * Can be persisted to and loaded from a server
  */
 ROI = Backbone.Model.extend({
+    urlRoot: '/roi',
     defaults: {
         imageId: '',
         tag: '', 
@@ -16,8 +17,4 @@ ROI = Backbone.Model.extend({
         width: 1,
         height: 1
     }
-});
-
-ROICollection = Backbone.Collection.extend({
-    model: ROI
 });

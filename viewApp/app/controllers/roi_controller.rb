@@ -13,7 +13,7 @@ class RoiController < ApplicationController
     # Handle ROI creation requests
     def create
         # proxy to POST /roi
-        result = ImageServer.post('/roi', :query => params)
+        result = ImageServer.post('/roi', :body => params)
         render :json => result
     end
 
@@ -26,7 +26,7 @@ class RoiController < ApplicationController
 
     def update
         # proxy to PUT /roi/id
-        ImageServer.put('/roi', :query => params)
+        ImageServer.put('/roi', :body => params)
         render :json => result
     end
 

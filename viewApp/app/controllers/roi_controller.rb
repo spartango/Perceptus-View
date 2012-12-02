@@ -22,13 +22,13 @@ class RoiController < ApplicationController
     # Handle ROI get requests 
     def show
         # proxy to GET /roi/id
-        @result = ImageServer.get('/roi/'+params[id]);
+        @result = ImageServer.get('/roi/'+params[:id]);
         render :json => @result
     end
 
     def update
         # proxy to PUT /roi/id
-        @result = ImageServer.put('/roi/'+params[id],             
+        @result = ImageServer.put('/roi/'+params[:id],             
             :body => params[:roi].to_json,
             :headers => { 'Content-Type' => 'application/json' })
         render :json => @result

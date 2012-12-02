@@ -13,25 +13,25 @@ class RoiController < ApplicationController
     # Handle ROI creation requests
     def create
         # proxy to POST /roi
-        result = ImageServer.post('/roi', 
+        @result = ImageServer.post('/roi', 
             :body => params[:roi].to_json,
             :headers => { 'Content-Type' => 'application/json' })
-        render :json => result
+        render :json => @result
     end
 
     # Handle ROI get requests 
     def show
         # proxy to GET /roi/id
-        ImageServer.get('/roi/'+params[id]);
-        render :json => result
+        @result = ImageServer.get('/roi/'+params[id]);
+        render :json => @result
     end
 
     def update
         # proxy to PUT /roi/id
-        ImageServer.put('/roi/'+params[id],             
+        @result = ImageServer.put('/roi/'+params[id],             
             :body => params[:roi].to_json,
             :headers => { 'Content-Type' => 'application/json' })
-        render :json => result
+        render :json => @result
     end
 
     def delete

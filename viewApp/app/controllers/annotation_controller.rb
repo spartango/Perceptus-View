@@ -1,0 +1,3 @@
+class AnnotationController < ApplicationController
+    
+end

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Annotating <%= @imageId %></title>
+    <script src='wax/ext/modestmaps.js' type='text/javascript'></script>
+    <script src='wax/dist/wax.mm.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js' type='text/javascript'></script>
+    <script src='js/Models.js' type='text/javascript'></script>
+    <script src='js/Viewer.js' type='text/javascript'></script>
+
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css">
+    <link rel='stylesheet' href='wax/theme/controls.css' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="css/boxselector.css" media="screen" />
+</head>
+    <body>
+    <div id='image-map' style="height: 512px; width: 1024px;"></div>
+    <div id='controls'>
+        <div id='boxselector-text'></div>
+        <div id='draw-toggle'> 
+            <button id="draw-button" class="btn btn-primary" type="button" onClick="onDrawButton()">Draw</button>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        var tilejson = <%= @tileJson %> ;// Passed through
+
+        var imageId = <%= @imageId %> ;// Passed through
+
+        initViewer(tilejson);
+    </script>
+    </body>
+</html>

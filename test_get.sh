@@ -1,1 +1,1 @@
-curl localhost:3000/roi/
+curl localhost:3000/roi/$1

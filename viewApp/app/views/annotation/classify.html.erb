@@ -3,7 +3,7 @@
 <%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" %>
 <%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" %>
 <%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" %>
-<%= javascript_include_tag "js/ClassifyViewer" %>
+<%= javascript_include_tag "js/Viewer" %>
 <%= javascript_include_tag "js/Models" %>
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <%= stylesheet_link_tag "wax/theme/controls" %>
@@ -16,8 +16,9 @@
         <div id='boxselector-text'></div>
     </div>
 <%= javascript_tag do %>
-  var imageId = "<%= @imageId %>"
+  var imageId = "<%= @imageId %>";
   initViewer( <%= @tilejson.html_safe %> );
+  
   <% @rois.each do |roi| %>
     renderROI( <%= roi.to_json.html_safe %> );
   <% end %>

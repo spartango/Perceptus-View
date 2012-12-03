@@ -29,6 +29,22 @@ function updateBoxListing(owner, box) {
 }
 
 // ------------------------------------------------------------------------
+// ROI Drawing 
+
+function renderROI(roi) {
+    // Create a box selector
+    var roiBox = new wax.mm.boxselector();
+    roiBox.map(map);
+    roiBox.add();
+    roiBox.disable(); 
+    roiBox.disableResize();
+
+    // Set the extent
+    // TODO
+}
+
+// ------------------------------------------------------------------------
+// Box Selector
 
 // Handles draw button clicks
 function onDrawButton() {

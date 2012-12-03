@@ -39,6 +39,8 @@ function renderROI(roi) {
     roiBox.disable(); 
     roiBox.disableResize();
 
+    // Offset the roi by the window offset
+
     // Convert the ROI pixel values to a Location (lat, lon)
     var l1 = map.pointLocation(new MM.Point(roi.x, roi.y));
     var l2 = map.pointLocation(new MM.Point((roi.x + roi.width), 
@@ -144,5 +146,6 @@ function initViewer(tilejson) {
     map = new MM.Map('image-map');
     map.addLayer(layer);
     map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,7,3) ];
-    map.setZoom(3);
+    map.coordinate = new MM.Coordinate(0,0,3);
+    map.requestRedraw();
 }

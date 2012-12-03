@@ -60,6 +60,7 @@ function onDrawButton() {
 
 // Handles changes to a box, whether new or resizing
 function onBoxChange(owner, box) {
+    console.log("change");
     if(boxes[owner.getId()]) {
         // This is an update
         onBoxUpdate(owner.getId(), box);
@@ -98,10 +99,15 @@ function onBoxUpdate(id, box) {
     // Find this box
     console.log("Updated box: "+box);
     var roi = boxes[id];
+    // Get pixel coordinates
+    var topLeft     = map.locationPoint(box[0]);
+    var bottomRight = map.locationPoint(box[1]);
+    // Set the model
     roi.set({x       : topLeft.x,
              y       : topLeft.y,
              width   : bottomRight.x - topLeft.x,
              height  : bottomRight.y - topLeft.y });
+    console.log(roi.attributes.x);
     roi.save({}, { 
         success: function(roi) {
             console.log("Updated "+roi.get("id"));   

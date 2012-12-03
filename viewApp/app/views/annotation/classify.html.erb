@@ -1,0 +1,30 @@
+<%= javascript_include_tag "wax/ext/modestmaps" %>
+<%= javascript_include_tag "wax/dist/wax.mm" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" %>
+<%= javascript_include_tag "Viewer" %>
+<%= javascript_include_tag "Models" %>
+<%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap" %>
+<%= stylesheet_link_tag "wax/theme/controls" %>
+<%= stylesheet_link_tag "css/boxselector.css" %>
+
+<h1>Editing annotation</h1>
+
+    <div id='image-map' style="height: 512px; width: 1024px;"></div>
+    <div id='controls'>
+        <div id='boxselector-text'></div>
+        <div id='draw-toggle'> 
+            <button id="draw-button" class="btn btn-primary" type="button" onClick="onDrawButton()">Draw</button>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        var tilejson = {
+          tilejson: '1.0.0',
+          scheme: 'xyz',
+          tiles: ['https://s3.amazonaws.com/testconvertedimagebucketserve/testImage/0/{x}/{y}'],
+        };
+
+        var imageId = "TESTIMAGE123"
+
+        initViewer(tilejson);
+    </script>

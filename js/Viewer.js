@@ -49,7 +49,7 @@ function renderROI(roi) {
 // Handles draw button clicks
 function onDrawButton() {
     // See if a new box-selector is needed (this selector has a box already)
-    if(!boxselector || !boxes[boxselector.getId()]) {
+    if(!boxselector || boxes[boxselector.getId()]) {
         // Create a new box-selector and allow for new Drawing
         createBoxSelector();
     }
@@ -91,7 +91,7 @@ function onNewBox(id, box) {
         success: function(roi) {
             console.log("Saved "+roi.get("id"));   
         }
-    });
+    }); 
 }
 
 function onBoxUpdate(id, box) {

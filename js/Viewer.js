@@ -39,8 +39,21 @@ function renderROI(roi) {
     roiBox.disable(); 
     roiBox.disableResize();
 
+    // Convert the ROI pixel values to a Location (lat, lon)
+    var l1 = map.pointLocation(new MM.Point(roi.x, roi.y));
+    var l2 = map.pointLocation(new MM.Point((roi.x + roi.width), 
+                                            (roi.y + roi.height)));
+
     // Set the extent
-    // TODO
+    roiBox.extent([
+        new MM.Location(
+            Math.max(l1.lat, l2.lat),
+            Math.min(l1.lon, l2.lon)),
+        new MM.Location(
+            Math.min(l1.lat, l2.lat),
+            Math.max(l1.lon, l2.lon))
+    ]);
+    
 }
 
 // ------------------------------------------------------------------------
@@ -60,7 +73,6 @@ function onDrawButton() {
 
 // Handles changes to a box, whether new or resizing
 function onBoxChange(owner, box) {
-    console.log("change");
     if(boxes[owner.getId()]) {
         // This is an update
         onBoxUpdate(owner.getId(), box);

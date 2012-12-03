@@ -10,6 +10,12 @@
 <%= stylesheet_link_tag "css/boxselector.css" %>
 
 <h1>Editing annotation</h1>
+<% params[:id] %>
+<% if @nextId %>
+<%= link_to "Next", :controller => "annotation", :action => "segment", :id => @nextId %>
+<% else %>
+Congrats, you've segmented ALL the images!
+<% end %>
 
     <div id='image-map' style="height: 512px; width: 1024px;"></div>
     <div id='controls'>
@@ -20,10 +26,10 @@
     </div>
     <script type='text/javascript'>
 
-        var imageId = "TESTIMAGE123"
+//        var imageId = "TESTIMAGE123"
 
     </script>
 
 <%= javascript_tag do %>
-  initViewer( <%= @tilejson.html_safe %> );
+//  initViewer( <%= @tilejson.html_safe %> );
 <% end %>

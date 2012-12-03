@@ -40,11 +40,15 @@ function renderROI(roi) {
     roiBox.disableResize();
 
     // Offset the roi by the window offset
-
+    var xOffset = 0;
+    var yOffset = 0;
+    
+    var x = roi.x + xOffset;
+    var y = roi.y + yOffset; 
     // Convert the ROI pixel values to a Location (lat, lon)
-    var l1 = map.pointLocation(new MM.Point(roi.x, roi.y));
-    var l2 = map.pointLocation(new MM.Point((roi.x + roi.width), 
-                                            (roi.y + roi.height)));
+    var l1 = map.pointLocation(new MM.Point(x, y));
+    var l2 = map.pointLocation(new MM.Point((x + roi.width), 
+                                            (y + roi.height)));
 
     // Set the extent
     roiBox.extent([

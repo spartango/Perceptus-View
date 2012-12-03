@@ -42,7 +42,7 @@ function renderROI(roi) {
     // Offset the roi by the window offset
     var xOffset = 0;
     var yOffset = 0;
-    
+
     var x = roi.x + xOffset;
     var y = roi.y + yOffset; 
     // Convert the ROI pixel values to a Location (lat, lon)
@@ -142,12 +142,21 @@ function createBoxSelector() {
     boxselector.enable();
 }
 
+function loadRois() {
+    // First load callback
+    if(loadedRois) {
+        loadedRois.map(renderROI);
+    }
+    map.removeCallback('drawn', loadRois);
+}
+
 // Sets up the map given tile json describing it, and attaches it to the dom
 function initViewer(tilejson) {
     // Setup the map
     var layer = new wax.mm.connector(tilejson);
     layer.provider.tileLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,7,3) ];
     map = new MM.Map('image-map');
+    map.addCallback('drawn', loadRois);
     map.addLayer(layer);
     map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,7,3) ];
     map.coordinate = new MM.Coordinate(0,0,3);

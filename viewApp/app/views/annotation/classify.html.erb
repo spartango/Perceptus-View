@@ -15,11 +15,9 @@
     <div id='controls'>
         <div id='boxselector-text'></div>
     </div>
-<%= javascript_tag do %>
-  var imageId = "<%= @imageId %>";
-  initViewer( <%= @tilejson.html_safe %> );
-  
-  <% @rois.each do |roi| %>
-    renderROI( <%= roi.to_json.html_safe %> );
-  <% end %>
-<% end %>
+    <%= javascript_tag do %>
+        var imageId = "<%= @imageId %>";
+        var loadedRois = <%= @rois.to_json.html_safe %>;
+
+        initViewer( <%= @tilejson.html_safe %> );
+    <% end %>

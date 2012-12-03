@@ -19,6 +19,6 @@
         </div>
     </div>
 <%= javascript_tag do %>
-  var imageId = "<%= @imageId %>"
+  var imageId = "<%= @imageId %>";
   initViewer( <%= @tilejson.html_safe %> );
 <% end %>

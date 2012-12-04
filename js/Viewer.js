@@ -65,7 +65,9 @@ function renderROI(roi) {
     boxes[roiBox.getId()] = bbroi;
 
     // Attach a classification label to the boxselector
-    addTagger(roiBox);
+    if(tagOptions) {
+        addTagger(roiBox);
+    }
 }
 
 // ------------------------------------------------------------------------
@@ -102,8 +104,6 @@ function showFeedback() {
 
 // ------------------------------------------------------------------------
 // ROI Tagging
-
-var tagOptions = ["epithelium", "stroma"];
 
 // Add the selector to a boxselector
 function addTagger(roiBox) {

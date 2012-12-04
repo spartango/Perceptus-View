@@ -59,7 +59,82 @@ function renderROI(roi) {
             Math.min(l1.lat, l2.lat),
             Math.max(l1.lon, l2.lon))
     ]);
+
+    // Keep track of the roi with backbone
+    var bbroi = new ROI(roi);
+    boxes[roiBox.getId()] = bbroi;
+
+    // Attach a classification label to the boxselector
+    addTagger(roiBox);
+}
+
+// ------------------------------------------------------------------------
+// Session 
+
+function initSessionVars() {
+  if (typeof(Storage) !== "undefined") {
+    if (!sessionStorage.indImagesSegmented) {
+       sessionStorage.indImagesSegmented = 1;
+    }
+    if (sessionStorage.indImagesSegmented == 1) {
+       $('.instructions-dynamic').text("Let's get started! See the blobs I've boxed in the example image on the right? Click \"Draw\" once you've spotted one of those below!");
+       sessionStorage.firstLabel = false;
+    }
+    $('.title').html('<h2>Segmenting image ' + sessionStorage.indImagesSegmented + '/10</h2>');
+    $('.bar').width(sessionStorage.indImagesSegmented * 10 + '%');
+  }
+}
+
+function showInstruction() {
+    if (sessionStorage.indImagesSegmented == 1 && sessionStorage.firstLabel == "false") {
+      $('.instructions-dynamic').text("Now drag a box over the blob you identified!");
+    }
+}
+
+function showFeedback() {
+    if (sessionStorage.firstLabel == "false") {
+      $('.instructions-dynamic').text("Great! Pan around the image and see if you can find another. Then click \"Draw\" and box it too!");
+      sessionStorage.firstLabel = true;
+    } else if (sessionStorage.indImagesSegmented == 1) {
+      $('.instructions-dynamic').text("Awesome, keep going! Resize any of your boxes if you need to, and click \"Submit\" when you're done.");
+    }
+}
+
+// ------------------------------------------------------------------------
+// ROI Tagging
+
+var tagOptions = ["epithelium", "stroma"];
+
+// Add the selector to a boxselector
+function addTagger(roiBox) {
+    var boxElement = $('#' + map.parent.id + '-boxselector-box' + roiBox.getId());
     
+    // Create a selector 
+    var selectElement = $(document.createElement('select'));
+    // Add the instructive label
+    selectElement.append('<option value="" disabled="" selected="" style="display:none;">Label</option>')
+    // Add each of the options
+    tagOptions.map(function(tag) {
+        selectElement.append('<option value='+tag+'>'+tag+'</option>');
+    });
+
+    // Setup event handling
+    // Need to prevent scrolling on mouse events
+    selectElement.mousedown(function() {
+       map.disableScrolling(); 
+    });
+
+    selectElement.mouseup(function() {
+       map.enableScrolling(); 
+    });
+
+    // Call the onBoxTag method with right args
+    selectElement.change(function(e) {
+        onBoxTag(roiBox.getId(), $(e.target).val())
+    });
+
+    // Append the selector as a child of the selector
+    boxElement.append(selectElement);
 }
 
 // ------------------------------------------------------------------------
@@ -77,23 +152,8 @@ function onDrawButton() {
     toggleButton();
     console.log(sessionStorage.indImagesSegmented);
     console.log(sessionStorage.firstLabel);
-    if (sessionStorage.indImagesSegmented == 1 && sessionStorage.firstLabel == "false") {
-      $('.instructions-dynamic').text("Now drag a box over the blob you identified!");
-    }
-}
 
-function initSessionVars() {
-  if (typeof(Storage) !== "undefined") {
-    if (!sessionStorage.indImagesSegmented) {
-       sessionStorage.indImagesSegmented = 1;
-    }
-    if (sessionStorage.indImagesSegmented == 1) {
-       $('.instructions-dynamic').text("Let's get started! See the blobs I've boxed in the example image on the right? Click \"Draw\" once you've spotted one of those below!");
-       sessionStorage.firstLabel = false;
-    }
-    $('.title').html('<h2>Segmenting image ' + sessionStorage.indImagesSegmented + '/10</h2>');
-    $('.bar').width(sessionStorage.indImagesSegmented * 10 + '%');
-  }
+    showInstruction();
 }
 
 // Handles changes to a box, whether new or resizing
@@ -131,12 +191,7 @@ function onNewBox(id, box) {
         }
     });
 
-    if (sessionStorage.firstLabel == "false") {
-      $('.instructions-dynamic').text("Great! Pan around the image and see if you can find another. Then click \"Draw\" and box it too!");
-      sessionStorage.firstLabel = true;
-    } else if (sessionStorage.indImagesSegmented == 1) {
-      $('.instructions-dynamic').text("Awesome, keep going! Resize any of your boxes if you need to, and click \"Submit\" when you're done.");
-    }
+    showFeedback();
 }
 
 function onBoxUpdate(id, box) {
@@ -151,7 +206,23 @@ function onBoxUpdate(id, box) {
              y       : topLeft.y,
              width   : bottomRight.x - topLeft.x,
              height  : bottomRight.y - topLeft.y });
-    console.log(roi.attributes.x);
+
+    roi.save({}, { 
+        success: function(roi) {
+            console.log("Updated "+roi.get("id"));   
+        }
+    });
+}
+
+function onBoxTag(id, tag) {
+    // Find this box
+    var roi = boxes[id];
+    console.log("Tagged roi: "+roi);
+
+    // Set the tag
+    roi.set({tag : tag});
+
+    // Commit the change
     roi.save({}, { 
         success: function(roi) {
             console.log("Updated "+roi.get("id"));   

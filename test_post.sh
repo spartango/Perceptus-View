@@ -1,0 +1,1 @@
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"imageId":"1", "tag":"test", "x":2, "y":3, "width":4, "height":5}' localhost:3000/roi

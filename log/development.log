@@ -7652,3 +7652,508 @@ Served asset /css/boxselector.css - 304 Not Modified (0ms)
 
 Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 17:47:16 -0500
 Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-12-04 17:58:02 -0500
+Connecting to database specified by database.yml
+
+ActiveRecord::ConnectionNotEstablished (ActiveRecord::ConnectionNotEstablished):
+  activerecord (3.2.9) lib/active_record/connection_adapters/abstract/connection_pool.rb:410:in `retrieve_connection'
+  activerecord (3.2.9) lib/active_record/connection_adapters/abstract/connection_specification.rb:171:in `retrieve_connection'
+  activerecord (3.2.9) lib/active_record/connection_adapters/abstract/connection_specification.rb:145:in `connection'
+  activerecord (3.2.9) lib/active_record/query_cache.rb:67:in `rescue in call'
+  activerecord (3.2.9) lib/active_record/query_cache.rb:61:in `call'
+  activerecord (3.2.9) lib/active_record/connection_adapters/abstract/connection_pool.rb:479:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.9) lib/active_support/callbacks.rb:405:in `_run__3423659738678597276__call__1972168334665339863__callbacks'
+  activesupport (3.2.9) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.9) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.9) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.9) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/reloader.rb:65:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.9) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.9) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.9) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.9) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.9) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.9) lib/rails/engine.rb:479:in `call'
+  railties (3.2.9) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.9) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /Users/andrewliu/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  /Users/andrewliu/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  /Users/andrewliu/.rvm/rubies/ruby-1.9.3-p327/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered /Users/andrewliu/.rvm/gems/ruby-1.9.3-p327/gems/actionpack-3.2.9/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+  Rendered /Users/andrewliu/.rvm/gems/ruby-1.9.3-p327/gems/actionpack-3.2.9/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.1ms)
+  Rendered /Users/andrewliu/.rvm/gems/ruby-1.9.3-p327/gems/actionpack-3.2.9/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (14.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-12-04 17:59:57 -0500
+Connecting to database specified by database.yml
+Processing by HomeController#index as HTML
+Redirected to http://localhost:3000/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc" for 127.0.0.1 at 2012-12-04 17:59:57 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc"}
+  Rendered annotation/segment.html.erb (24.3ms)
+Completed 200 OK in 816ms (Views: 49.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 17:59:58 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (10ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 17:59:58 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 17:59:58 -0500
+Served asset /js/Viewer.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 17:59:58 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 17:59:58 -0500
+Served asset /js/Models.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 17:59:58 -0500
+Served asset /css/boxselector.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 17:59:59 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-12-04 18:08:19 -0500
+Processing by HomeController#index as HTML
+Redirected to http://localhost:3000/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc
+Completed 302 Found in 1ms
+
+
+Started GET "/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc" for 127.0.0.1 at 2012-12-04 18:08:19 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc"}
+  Rendered annotation/segment.html.erb (22.2ms)
+Completed 200 OK in 1147ms (Views: 45.0ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /js/Viewer.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /js/Models.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /css/boxselector.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:20 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (3ms)
+
+
+Started POST "/roi" for 127.0.0.1 at 2012-12-04 18:08:23 -0500
+Processing by RoiController#create as JSON
+  Parameters: {"imageId"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc", "tag"=>"default", "x"=>457, "y"=>138.00000000000034, "width"=>146, "height"=>105.00000000000011, "roi"=>{"imageId"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc", "tag"=>"default", "x"=>457, "y"=>138.00000000000034, "width"=>146, "height"=>105.00000000000011}}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 91ms (Views: 0.3ms)
+
+
+Started GET "/annotation/segment/nkivgh:a1ac63b537a6d4360acb54473d0c0e8" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:a1ac63b537a6d4360acb54473d0c0e8"}
+  Rendered annotation/segment.html.erb (24.5ms)
+Completed 200 OK in 94ms (Views: 25.9ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /js/Viewer.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:24 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (2ms)
+
+
+Started POST "/roi" for 127.0.0.1 at 2012-12-04 18:08:27 -0500
+Processing by RoiController#create as JSON
+  Parameters: {"imageId"=>"nkivgh:a1ac63b537a6d4360acb54473d0c0e8", "tag"=>"default", "x"=>132, "y"=>198.00000000000023, "width"=>245, "height"=>88.99999999999989, "roi"=>{"imageId"=>"nkivgh:a1ac63b537a6d4360acb54473d0c0e8", "tag"=>"default", "x"=>132, "y"=>198.00000000000023, "width"=>245, "height"=>88.99999999999989}}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 120ms (Views: 0.4ms)
+
+
+Started GET "/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc"}
+  Rendered annotation/segment.html.erb (7.4ms)
+Completed 200 OK in 163ms (Views: 8.8ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:28 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:29 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started POST "/roi" for 127.0.0.1 at 2012-12-04 18:08:32 -0500
+Processing by RoiController#create as JSON
+  Parameters: {"imageId"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc", "tag"=>"default", "x"=>467.0000000000001, "y"=>145.00000000000023, "width"=>126.99999999999989, "height"=>86.99999999999966, "roi"=>{"imageId"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc", "tag"=>"default", "x"=>467.0000000000001, "y"=>145.00000000000023, "width"=>126.99999999999989, "height"=>86.99999999999966}}
+WARNING: Can't verify CSRF token authenticity
+Completed 200 OK in 92ms (Views: 0.3ms)
+
+
+Started GET "/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc"}
+  Rendered annotation/segment.html.erb (7.5ms)
+Completed 200 OK in 71ms (Views: 8.6ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:33 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (2ms)
+
+
+Started GET "/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc"}
+  Rendered annotation/segment.html.erb (6.7ms)
+Completed 200 OK in 71ms (Views: 7.7ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:34 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/annotation/segment/nkivgh:aa9fc52425bb4a35117592a46f5f7" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa9fc52425bb4a35117592a46f5f7"}
+  Rendered annotation/segment.html.erb (5.6ms)
+Completed 200 OK in 69ms (Views: 6.6ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:35 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/annotation/segment/nkivgh:aa60ce95718ff12899509213ef2d2" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa60ce95718ff12899509213ef2d2"}
+  Rendered annotation/segment.html.erb (8.0ms)
+Completed 200 OK in 73ms (Views: 9.5ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:36 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/annotation/segment/nkivgh:aebf1486fbe3a46fcb73e1aa4bd52e" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aebf1486fbe3a46fcb73e1aa4bd52e"}
+  Rendered annotation/segment.html.erb (5.6ms)
+Completed 200 OK in 69ms (Views: 6.6ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:37 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/annotation/segment/nkivgh:aecba5833c9fb2b42ebc4ab0771a8ec6" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aecba5833c9fb2b42ebc4ab0771a8ec6"}
+  Rendered annotation/segment.html.erb (5.3ms)
+Completed 200 OK in 68ms (Views: 6.1ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /js/Viewer.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:38 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/annotation/segment/nkivgh:afcdb4ae98cd6c46daaa9d57aa22bff" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:afcdb4ae98cd6c46daaa9d57aa22bff"}
+  Rendered annotation/segment.html.erb (8.1ms)
+Completed 200 OK in 72ms (Views: 9.4ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /css/boxselector.css - 304 Not Modified (23ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:39 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Processing by HomeController#index as HTML
+Redirected to http://localhost:3000/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc
+Completed 302 Found in 1ms
+
+
+Started GET "/annotation/segment/nkivgh:aa7de9d0099d8cddb1578f04c3114fc" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Processing by AnnotationController#segment as HTML
+  Parameters: {"id"=>"nkivgh:aa7de9d0099d8cddb1578f04c3114fc"}
+  Rendered annotation/segment.html.erb (5.2ms)
+Completed 200 OK in 69ms (Views: 6.0ms)
+
+
+Started GET "/assets/wax/ext/modestmaps.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /wax/ext/modestmaps.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/wax/dist/wax.mm.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /wax/dist/wax.mm.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Viewer.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /js/Viewer.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/js/Models.js?body=1" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /js/Models.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wax/theme/controls.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /wax/theme/controls.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css/boxselector.css?body=1" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /css/boxselector.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tutorial_segment.png" for 127.0.0.1 at 2012-12-04 18:08:40 -0500
+Served asset /tutorial_segment.png - 304 Not Modified (1ms)

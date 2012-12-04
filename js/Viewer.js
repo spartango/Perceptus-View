@@ -128,9 +128,9 @@ function createBoxSelector() {
 function initViewer(tilejson) {
     // Setup the map
     var layer = new wax.mm.connector(tilejson);
-    layer.provider.tileLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,7,3) ];
+    layer.provider.tileLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,5,3) ];
     map = new MM.Map('image-map');
     map.addLayer(layer);
-    map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,7,3) ];
+    map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,5,3) ];
     map.setZoom(3);
 }

@@ -4,7 +4,7 @@ require 'httparty'
 # HTTParty proxy mapper
 class ImageServer
     include HTTParty
-    base_uri 'localhost:8089'
+    base_uri 'http://meta.percept.us:8089'
     format :json
 end
 

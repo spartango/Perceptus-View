@@ -9,8 +9,7 @@
 <%= stylesheet_link_tag "wax/theme/controls" %>
 <%= stylesheet_link_tag "css/boxselector.css" %>
 
-<h1>Editing annotation</h1>
-<% params[:id] %>
+<h1>Segmenting image <%= params[:id] %></h1>
 <% if @nextId %>
 <%= link_to "Next", :controller => "annotation", :action => "segment", :id => @nextId %>
 <% else %>
@@ -25,11 +24,11 @@ Congrats, you've segmented ALL the images!
         </div>
     </div>
     <script type='text/javascript'>
-
-//        var imageId = "TESTIMAGE123"
+      var imageId = "TESTIMAGE123"
 
     </script>
 
 <%= javascript_tag do %>
-//  initViewer( <%= @tilejson.html_safe %> );
+  var imageId = "<% params[:id] %>";
+  initViewer( <%= @tilejson.html_safe %> );
 <% end %>

@@ -3,7 +3,7 @@ var boxes = {};
 
 // Toggles the UI state of the draw-button
 function toggleButton() {
-     $('.btn').toggleClass('btn-success');
+     $('.btn-primary').toggleClass('btn-success');
 }
 
 // Makes boxes printable
@@ -75,6 +75,16 @@ function onDrawButton() {
 
     // Set the mode away from resizing
     toggleButton();
+}
+
+function initSessionVars() {
+  if (typeof(Storage) !== "undefined") {
+    if (!sessionStorage.indImagesSegmented) {
+       sessionStorage.indImagesSegmented = 1;
+    }
+    $('.title').html('<h1>Segmenting image ' + sessionStorage.indImagesSegmented + '/10</h1>');
+    $('.bar').width(sessionStorage.indImagesSegmented * 10 + '%');
+  }
 }
 
 // Handles changes to a box, whether new or resizing

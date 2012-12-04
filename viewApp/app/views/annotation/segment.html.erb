@@ -8,22 +8,40 @@
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <%= stylesheet_link_tag "wax/theme/controls" %>
 <%= stylesheet_link_tag "css/boxselector.css" %>
+<div class="container">
+<div class="hero-unit">
+<div class="progress progress-striped">
+  <div class="bar" style="width: 40%;"></div>
+</div>
+<div class="title"></div>
+</div>
 
-<h1>Segmenting image <%= params[:id] %></h1>
-<% if @nextId %>
-<%= link_to "Next", :controller => "annotation", :action => "segment", :id => @nextId %>
-<% else %>
-Congrats, you've segmented ALL the images!
-<% end %>
-
-    <div id='image-map' style="height: 512px; width: 1024px;"></div>
+    <div id='image-map' style="height: 400px; width: auto;"></div>
     <div id='controls'>
-        <div id='boxselector-text'></div>
         <div id='draw-toggle'> 
             <button id="draw-button" class="btn btn-primary" type="button" onClick="onDrawButton()">Draw</button>
+            <button id="submit-button" class="btn btn-secondary" type="button" onClick="onSegmentSubmit()">Submit</button>
         </div>
     </div>
+</div>
 <%= javascript_tag do %>
+  initSessionVars();
   var imageId = "<%= @imageId %>";
   initViewer( <%= @tilejson.html_safe %> );
+  function onSegmentSubmit() {
+     if (typeof(Storage) !== "undefined") {
+       <% if @nextId %>
+       if (sessionStorage.indImagesSegmented == 10) {
+         sessionStorage.removeItem('indImagesSegmented');
+         window.location.replace('/');
+       } else {
+         sessionStorage.indImagesSegmented++;
+         window.location.replace('/annotation/segment/' + '<%= @nextId %>');
+       }
+       <% else %>
+       sessionStorage.removeItem('indImagesSegmented');
+       window.location.replace('/');
+       <% end %>
+     }
+  }
 <% end %>

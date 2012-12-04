@@ -75,12 +75,21 @@ function onDrawButton() {
 
     // Set the mode away from resizing
     toggleButton();
+    console.log(sessionStorage.indImagesSegmented);
+    console.log(sessionStorage.firstLabel);
+    if (sessionStorage.indImagesSegmented == 1 && sessionStorage.firstLabel == "false") {
+      $('.instructions-dynamic').text("Now drag a box over the blob you identified!");
+    }
 }
 
 function initSessionVars() {
   if (typeof(Storage) !== "undefined") {
     if (!sessionStorage.indImagesSegmented) {
        sessionStorage.indImagesSegmented = 1;
+    }
+    if (sessionStorage.indImagesSegmented == 1) {
+       $('.instructions-dynamic').text("Let's get started! See the blobs I've boxed in the example image on the right? Click \"Draw\" once you've spotted one of those below!");
+       sessionStorage.firstLabel = false;
     }
     $('.title').html('<h2>Segmenting image ' + sessionStorage.indImagesSegmented + '/10</h2>');
     $('.bar').width(sessionStorage.indImagesSegmented * 10 + '%');
@@ -120,7 +129,14 @@ function onNewBox(id, box) {
         success: function(roi) {
             console.log("Saved "+roi.get("id"));   
         }
-    }); 
+    });
+
+    if (sessionStorage.firstLabel == "false") {
+      $('.instructions-dynamic').text("Great! Pan around the image and see if you can find another. Then click \"Draw\" and box it too!");
+      sessionStorage.firstLabel = true;
+    } else if (sessionStorage.indImagesSegmented == 1) {
+      $('.instructions-dynamic').text("Awesome, keep going! Resize any of your boxes if you need to, and click \"Submit\" when you're done.");
+    }
 }
 
 function onBoxUpdate(id, box) {

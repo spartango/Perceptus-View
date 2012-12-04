@@ -82,7 +82,7 @@ function initSessionVars() {
     if (!sessionStorage.indImagesSegmented) {
        sessionStorage.indImagesSegmented = 1;
     }
-    $('.title').html('<h1>Segmenting image ' + sessionStorage.indImagesSegmented + '/10</h1>');
+    $('.title').html('<h2>Segmenting image ' + sessionStorage.indImagesSegmented + '/10</h2>');
     $('.bar').width(sessionStorage.indImagesSegmented * 10 + '%');
   }
 }

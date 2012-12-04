@@ -8,19 +8,28 @@
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <%= stylesheet_link_tag "wax/theme/controls" %>
 <%= stylesheet_link_tag "css/boxselector.css" %>
-<div class="container">
-<div class="hero-unit">
+<div class="container-fluid">
+<div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
+<div class="row-fluid">
+<div class="span8">
 <div class="progress progress-striped">
-  <div class="bar" style="width: 40%;"></div>
+<div class="bar"></div>
 </div>
 <div class="title"></div>
+<p>Draw boxes around blob-like and cellular regions by clicking "Draw" and dragging out boxes on such image regions below. Pan around image to find more regions. See right for examples of regions. Submit changes when done.
+</div>
+<div class="span1"></div>
+<div class="span3">
+<%= image_tag("tutorial_segment.png") %>
+</div>
+</div>
 </div>
 
     <div id='image-map' style="height: 400px; width: auto;"></div>
-    <div id='controls'>
+    <p><div id='controls'>
         <div id='draw-toggle'> 
-            <button id="draw-button" class="btn btn-primary" type="button" onClick="onDrawButton()">Draw</button>
-            <button id="submit-button" class="btn btn-secondary" type="button" onClick="onSegmentSubmit()">Submit</button>
+            <button id="draw-button" class="btn btn-primary btn-large" type="button" onClick="onDrawButton()">Draw</button>
+            <button id="submit-button" class="btn btn-secondary btn-large" type="button" onClick="onSegmentSubmit()">Submit</button>
         </div>
     </div>
 </div>

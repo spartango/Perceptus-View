@@ -39,8 +39,27 @@ function renderROI(roi) {
     roiBox.disable(); 
     roiBox.disableResize();
 
+    // Offset the roi by the window offset
+    var xOffset = 0;
+    var yOffset = 0;
+
+    var x = roi.x + xOffset;
+    var y = roi.y + yOffset; 
+    // Convert the ROI pixel values to a Location (lat, lon)
+    var l1 = map.pointLocation(new MM.Point(x, y));
+    var l2 = map.pointLocation(new MM.Point((x + roi.width), 
+                                            (y + roi.height)));
+
     // Set the extent
-    // TODO
+    roiBox.extent([
+        new MM.Location(
+            Math.max(l1.lat, l2.lat),
+            Math.min(l1.lon, l2.lon)),
+        new MM.Location(
+            Math.min(l1.lat, l2.lat),
+            Math.max(l1.lon, l2.lon))
+    ]);
+    
 }
 
 // ------------------------------------------------------------------------
@@ -60,7 +79,6 @@ function onDrawButton() {
 
 // Handles changes to a box, whether new or resizing
 function onBoxChange(owner, box) {
-    console.log("change");
     if(boxes[owner.getId()]) {
         // This is an update
         onBoxUpdate(owner.getId(), box);
@@ -124,13 +142,23 @@ function createBoxSelector() {
     boxselector.enable();
 }
 
+function loadRois() {
+    // First load callback
+    if(loadedRois) {
+        loadedRois.map(renderROI);
+    }
+    map.removeCallback('drawn', loadRois);
+}
+
 // Sets up the map given tile json describing it, and attaches it to the dom
 function initViewer(tilejson) {
     // Setup the map
     var layer = new wax.mm.connector(tilejson);
     layer.provider.tileLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,5,3) ];
     map = new MM.Map('image-map');
+    map.addCallback('drawn', loadRois);
     map.addLayer(layer);
     map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,5,3) ];
-    map.setZoom(3);
+    map.coordinate = new MM.Coordinate(0,0,3);
+    map.requestRedraw();
 }

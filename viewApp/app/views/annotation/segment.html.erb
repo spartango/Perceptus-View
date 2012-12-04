@@ -23,12 +23,7 @@ Congrats, you've segmented ALL the images!
             <button id="draw-button" class="btn btn-primary" type="button" onClick="onDrawButton()">Draw</button>
         </div>
     </div>
-    <script type='text/javascript'>
-      var imageId = "TESTIMAGE123"
-
-    </script>
-
 <%= javascript_tag do %>
-  var imageId = "<% params[:id] %>";
+  var imageId = "<%= @imageId %>";
   initViewer( <%= @tilejson.html_safe %> );
 <% end %>

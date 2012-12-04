@@ -1,0 +1,56 @@
+<%= javascript_include_tag "wax/ext/modestmaps" %>
+<%= javascript_include_tag "wax/dist/wax.mm" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" %>
+<%= javascript_include_tag "js/Viewer" %>
+<%= javascript_include_tag "js/Models" %>
+<%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
+<%= stylesheet_link_tag "wax/theme/controls" %>
+<%= stylesheet_link_tag "css/boxselector.css" %>
+<div class="container-fluid">
+<div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
+<div class="row-fluid">
+<div class="span9">
+<div class="progress progress-striped">
+<div class="bar"></div>
+</div>
+<div class="title"></div>
+<p class="instructions-static">Draw boxes around blob-like cellular regions, panning around image below to find more regions. See right for examples.</p>
+<p class="instructions-dynamic"></p>
+</div>
+<div class="span3">
+<%= image_tag("tutorial_segment.png") %>
+</div>
+</div>
+</div>
+
+    <div id='image-map' style="height: 400px; width: auto;"></div>
+    <p><div id='controls'>
+        <div id='draw-toggle'> 
+            <button id="draw-button" class="btn btn-primary btn-large" type="button" onClick="onDrawButton()">Draw</button>
+            <button id="submit-button" class="btn btn-secondary btn-large" type="button" onClick="onSegmentSubmit()">Submit</button>
+        </div>
+    </div>
+</div>
+<%= javascript_tag do %>
+  initSessionVars();
+  var imageId = "<%= @imageId %>";
+  initViewer( <%= @tilejson.html_safe %> );
+  function onSegmentSubmit() {
+     if (typeof(Storage) !== "undefined") {
+       <% if @nextId %>
+       if (sessionStorage.indImagesSegmented == 10) {
+         sessionStorage.removeItem('indImagesSegmented');
+         window.location.replace('/');
+       } else {
+         sessionStorage.indImagesSegmented++;
+         window.location.replace('/annotation/segment/' + '<%= @nextId %>');
+       }
+       <% else %>
+       sessionStorage.removeItem('indImagesSegmented');
+       window.location.replace('/');
+       <% end %>
+     }
+  }
+<% end %>

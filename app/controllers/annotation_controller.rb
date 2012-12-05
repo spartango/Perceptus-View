@@ -11,14 +11,20 @@ end
 class AnnotationController < ApplicationController
  
   def segment
-    session[:seen_image_ids] = session[:seen_image_ids] ? session[:seen_image_ids] + [ params[:id] ] : [ params[:id] ]
-    session[:num_images_seen] = session[:num_images_seen] ? session[:num_images_seen] + 1 : 1
-    if (session[:num_images_seen] >= 11)
-      session[:num_images_seen] = 1
+    imageIds = ImageServer.get('/user/' + 'nkivgh' + '/images')
+    if params[:id]
+      session[:seen_image_ids] = session[:seen_image_ids] ? session[:seen_image_ids] + [ params[:id] ] : [ params[:id] ]
+    elsif session[:seen_image_ids]
+      idsLeft = imageIds - session[:seen_image_ids]
+      params[:id] = idsLeft.sample
+      session[:seen_image_ids] = session[:seen_image_ids] + [ params[:id] ]
+    else
+      params[:id] = imageIds.sample
+      session[:seen_image_ids] = [ params[:id] ]
     end
-    imageIds = ImageServer.get('/user/' + 'nkivgh' + '/images');
+    session[:num_images_seen] = (session[:seen_image_ids].length - 1) % 10 + 1
     idsLeft = imageIds - session[:seen_image_ids]
-    @nextId = (idsLeft.empty?) ? false : idsLeft[0]
+    @nextId = (idsLeft.empty?) ? false : idsLeft.sample
     tile = { :tilejson => '1.0.0', :scheme => 'xyz', :tiles => ['https://s3.amazonaws.com/testconvertedimagebucketserve2/' + params[:id] + '/0/{x}/{y}'] }
     @imageId = params[:id]
     @tilejson = tile.to_json

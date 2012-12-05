@@ -18,6 +18,7 @@
     <%= javascript_tag do %>
         var imageId = "<%= @imageId %>";
         var loadedRois = <%= @rois.to_json.html_safe %>;
+        var tagOptions = ["epithelium", "stroma"];
 
         initViewer( <%= @tilejson.html_safe %> );
     <% end %>

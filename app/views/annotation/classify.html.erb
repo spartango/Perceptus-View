@@ -59,6 +59,7 @@
   $('.bar').width(numImagesSeen * 10 + '%');
   var loadedRois = <%= @rois.to_json.html_safe %>;
   var imageId = "<%= @imageId %>";
+  var tagOptions = ["epithelium", "stroma"];
   var firstLabel = false;
   initViewer( <%= @tilejson.html_safe %> );
   function readySubmit() {

@@ -8,6 +8,7 @@
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <%= stylesheet_link_tag "controls" %>
 <%= stylesheet_link_tag "css/boxselector.css" %>
+<%= session.inspect %>
 <div class="container-fluid">
 <div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
 <div class="row-fluid">
@@ -15,7 +16,7 @@
 <div class="progress progress-striped">
 <div class="bar"></div>
 </div>
-<div class="title"></div>
+<div class="title"><h2>Segmenting image <%= session[:num_images_seen] %>/10</h2></div>
 <p class="instructions-static">Draw boxes around blob-like cellular regions, panning around image below to find more regions. See right for examples.</p>
 <p class="instructions-dynamic"></p>
 </div>
@@ -29,28 +30,19 @@
     <p><div id='controls'>
         <div id='draw-toggle'> 
             <button id="draw-button" class="btn btn-primary btn-large" type="button" onClick="onDrawButton()">Draw</button>
-            <button id="submit-button" class="btn btn-secondary btn-large" type="button" onClick="onSegmentSubmit()">Submit</button>
+<% if @nextId %>
+            <a href='/annotation/segment/<%= @nextId %>'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
+<% else %>
+<a href='/'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
+<% end %>
         </div>
     </div>
 </div>
 <%= javascript_tag do %>
-  initSessionVars();
+  var numImagesSeen = <%= session[:num_images_seen] %>;
+  $('.bar').width(numImagesSeen * 10 + '%');
   var imageId = "<%= @imageId %>";
+  var firstLabel = false;
+  $('.instructions-dynamic').text("Let's get started! See the blobs I've boxed in the example image on the right? Click \"Draw\" once you've spotted one of those below!");
   initViewer( <%= @tilejson.html_safe %> );
-  function onSegmentSubmit() {
-     if (typeof(Storage) !== "undefined") {
-       <% if @nextId %>
-       if (sessionStorage.indImagesSegmented == 10) {
-         sessionStorage.removeItem('indImagesSegmented');
-         window.location.replace('/');
-       } else {
-         sessionStorage.indImagesSegmented++;
-         window.location.replace('/annotation/segment/' + '<%= @nextId %>');
-       }
-       <% else %>
-       sessionStorage.removeItem('indImagesSegmented');
-       window.location.replace('/');
-       <% end %>
-     }
-  }
 <% end %>

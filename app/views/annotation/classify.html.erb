@@ -8,16 +8,64 @@
 <%= stylesheet_link_tag "controls" %>
 <%= stylesheet_link_tag "css/boxselector.css" %>
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
+<div class="container-fluid">
+<div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
+<div class="row-fluid">
+<div class="span9">
+<div class="progress progress-striped">
+<div class="bar"></div>
+</div>
+<div class="title"><h2>Labeling image <%= session[:num_images_classified] %>/10</h2></div>
+<p class="instructions-static" style="font-size:18px;">Mark each box in the image below as type A (epithelium, red box) or B (stroma, blue box). See right for type A and B examples.</p>
+<div class="row-fluid">
+<div class="span6"><h4>Type A Regions...</h4>
+<ul>
+<li>are clumps of many distinct cells with nuclei</li>
+<li>tend to be darker purple</li>
+</ul>
+</div>
+<div class="span6"><h4>Type B Regions...</h4>
+<ul>
+<li>lack distinct cells and surround type A regions</li>
+<li>tend to be lighter pink</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="span3">
+<%= image_tag("tutorial_segment.png") %>
+</div>
+</div>
+</div>
 
-<h1>Classify ROIs</h1>
-
-    <div id='image-map' style="height: 512px; width: 1024px;"></div>
-    <div id='controls'>
-        <div id='boxselector-text'></div>
+    <div id='image-map' style="height: 350px; width: auto;"></div>
+    <p style="margin: 0 0 10px;"><div class="row-fluid" id='controls'>
+<div class="span1">
+<% if @nextId %>
+            <a href='/annotation/classify/<%= @nextId %>'><button id="submit-button" class="btn btn-secondary btn-large" type="button" disabled="disabled">Submit</button></a>
+<% else %>
+<a href='/annotation/classify'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit Labels</button></a>
+<% end %>
+</div>
+<div class="span11">
+<div class="alert alert-info" id="label-submit" style="line-height:25px;">
+  <p id="instructions-dynamic" style="margin: 0 0 0px;">Get started by labeling a box of your choice. See the top-right example if you need help!</p>
+</div>
+</div>
     </div>
-    <%= javascript_tag do %>
-        var imageId = "<%= @imageId %>";
-        var loadedRois = <%= @rois.to_json.html_safe %>;
-
-        initViewer( <%= @tilejson.html_safe %> );
-    <% end %>
+</div>
+<%= javascript_tag do %>
+  var numImagesSeen = <%= session[:num_images_classified] %>;
+  $('.bar').width(numImagesSeen * 10 + '%');
+  var loadedRois = <%= @rois.to_json.html_safe %>;
+  var imageId = "<%= @imageId %>";
+  var firstLabel = false;
+  initViewer( <%= @tilejson.html_safe %> );
+  function readySubmit() {
+    $('#label-submit').removeClass('alert-info');
+    $('#label-submit').addClass('alert-success');
+    $('#instructions-dynamic').text("Congrats! You've labeled the whole image! Submit your labels to go on.");
+    $('#submit-button').removeAttr('disabled');
+  }
+  setTimeout(readySubmit, 1000);
+<% end %>

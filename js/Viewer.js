@@ -115,7 +115,7 @@ function onNewBox(id, box) {
         }
     });
 
-    if (!firstLabel) {
+    if (!firstLabel && numImagesSeen == 1) {
       $('.instructions-dynamic').text("Great! Pan around the image and see if you can find another. Then click \"Draw\" and box it too!");
       firstLabel = true;
     } else if (numImagesSeen == 1) {

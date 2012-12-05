@@ -5,10 +5,9 @@
 <%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" %>
 <%= javascript_include_tag "js/Viewer" %>
 <%= javascript_include_tag "js/Models" %>
-<%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <%= stylesheet_link_tag "controls" %>
 <%= stylesheet_link_tag "css/boxselector.css" %>
-<%= session.inspect %>
+<%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <div class="container-fluid">
 <div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
 <div class="row-fluid">
@@ -17,8 +16,8 @@
 <div class="bar"></div>
 </div>
 <div class="title"><h2>Segmenting image <%= session[:num_images_seen] %>/10</h2></div>
-<p class="instructions-static">Draw boxes around blob-like cellular regions, panning around image below to find more regions. See right for examples.</p>
-<p class="instructions-dynamic"></p>
+<p class="instructions-static" style="font-size:18px;">Draw boxes around blob-like cellular regions, panning around image below to find more regions. See right for examples.</p>
+<p class="instructions-dynamic" style="font-size:18px;"></p>
 </div>
 <div class="span3">
 <%= image_tag("tutorial_segment.png") %>
@@ -43,6 +42,8 @@
   $('.bar').width(numImagesSeen * 10 + '%');
   var imageId = "<%= @imageId %>";
   var firstLabel = false;
-  $('.instructions-dynamic').text("Let's get started! See the blobs I've boxed in the example image on the right? Click \"Draw\" once you've spotted one of those below!");
+  if (numImagesSeen == 1) {
+    $('.instructions-dynamic').text("Let's get started! See the blobs I've boxed in the example image on the right? Click \"Draw\" once you've spotted one of those below!");
+  }
   initViewer( <%= @tilejson.html_safe %> );
 <% end %>

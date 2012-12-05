@@ -201,13 +201,18 @@ function onBoxUpdate(id, box) {
 function onBoxTag(id, tag) {
     // Find this box
     var roi = boxes[id];
-    console.log("Tagged roi: "+roi);
 
-    // Set the tag
-    roi.set({tag : tag});
+    // Copy roi with new tag to avoid overwriting
+    var newRoi = new ROI({ imageId : roi.get('imageId'), 
+                           tag     : tag,
+                           x       : roi.get('x'),
+                           y       : roi.get('y'),
+                           width   : roi.get('width'),
+                           height  : roi.get('height') });
+    console.log("Tagged roi: "+newRoi);
 
     // Commit the change
-    roi.save({}, { 
+    newRoi.save({}, { 
         success: function(roi) {
             console.log("Updated "+roi.get("id"));   
         }
@@ -242,4 +247,4 @@ function initViewer(tilejson) {
     map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,5,3) ];
     map.coordinate = new MM.Coordinate(0,0,3);
     map.requestRedraw();
-}
+};

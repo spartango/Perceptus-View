@@ -1,1 +1,13 @@
-<h1>Welcome!</h1>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" %>
+
+<%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
+
+<div class="container">
+
+      <h1>Thank you for labeling images!</h1>
+      <p>Your labels provide data to advance the treatment of cancer.</p>
+      <p>To start labeling images, go <%= link_to 'here', :controller => 'annotation', :action => 'classify' %>.</p>
+
+</div> <!-- /container -->

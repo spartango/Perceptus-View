@@ -42,10 +42,10 @@
   <div id='image-map' style="height: 350px; width: auto;"></div>
   <p style="margin: 0 0 10px;"><div class="row-fluid" id='controls'>
     <div class="span1">
-    <% if @nextId %>
+    <% if @nextId && session[:num_images_classified] < 10 %>
       <a href='/annotation/classify/<%= @nextId %>'><button id="submit-button" class="btn btn-secondary btn-large" type="button" disabled="disabled">Submit</button></a>
     <% else %>
-      <a href='/annotation/classify'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit Labels</button></a>
+      <a href='/'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
     <% end %>
     </div>
     <div class="span11">

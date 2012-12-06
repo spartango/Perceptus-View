@@ -34,13 +34,16 @@ class AnnotationController < ApplicationController
     imageIds = ImageServer.get('/user/' + 'nkivgh' + '/images')
     if params[:id]
       session[:classified_image_ids] = session[:classified_image_ids] ? session[:classified_image_ids] + [ params[:id] ] : [ params[:id] ]
+      session[:num_images_classified] = session[:num_images_classified] ? session[:num_images_classified] % 10 + 1 : 1
     elsif session[:classified_image_ids]
       idsLeft = imageIds - session[:classified_image_ids]
       params[:id] = idsLeft.sample
       session[:classified_image_ids] = session[:classified_image_ids] + [ params[:id] ]
+      session[:num_images_classified] = session[:num_images_classified] ? session[:num_images_classified] % 10 + 1 : 1
     else
       params[:id] = imageIds.sample
       session[:classified_image_ids] = [ params[:id] ]
+      session[:num_images_classified] = 1
     end
     idsLeft = imageIds - session[:classified_image_ids]
     @nextId = (idsLeft.empty?) ? false : idsLeft.sample
@@ -48,7 +51,7 @@ class AnnotationController < ApplicationController
     @imageId = params[:id]
     @tilejson = tile.to_json
     rois = ImageServer.get('/image/' + params[:id] + '/rois')
-    rois = rois.select { |r| r['tag'] == 'segment' }
+    rois = rois.select { |r| r['tag'] == 'segment' && r['width'] <= 100 && r['height'] <= 100 }
     # distinctRois = []
     # rois.each do |r|
     #   incl = true
@@ -56,15 +59,13 @@ class AnnotationController < ApplicationController
     #     incl &&= (
     if rois.length >= 8
       rois = rois.sample(8);
-      session[:num_images_classified] = (session[:classified_image_ids].length - 1) % 10 + 1
     elsif rois.length == 0
+      session[:num_images_classified] = (session[:num_images_classified] == 1) ? 10 : session[:num_images_classified] - 1;
       if !@nextId
         redirect_to :controller => 'annotation', :action => 'classify'
       else
         redirect_to :controller => 'annotation', :action => 'classify', :id => @nextId
       end
-    else
-      session[:num_images_classified] = (session[:classified_image_ids].length - 1) % 10 + 1
     end
     @rois = rois.to_json
   end

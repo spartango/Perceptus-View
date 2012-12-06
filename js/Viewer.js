@@ -232,6 +232,7 @@ function onBoxTag(id, tag) {
     });
 }
 
+// toggles submit button to be enabled and alerts user to move on
 function readySubmit() {
     $('#label-submit').removeClass('alert-info');
     $('#label-submit').addClass('alert-success');

@@ -9,34 +9,33 @@
 <%= stylesheet_link_tag "css/boxselector.css" %>
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 <div class="container-fluid">
-<div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
-<div class="row-fluid">
-<div class="span9">
-<div class="progress progress-striped">
-<div class="bar"></div>
-</div>
-<div class="title"><h2>Segmenting image <%= session[:num_images_seen] %>/10</h2></div>
-<p class="instructions-static" style="font-size:18px;">Draw boxes around blob-like cellular regions, panning around image below to find more regions. See right for examples.</p>
-<p class="instructions-dynamic" style="font-size:18px;"></p>
-</div>
-<div class="span3">
-<%= image_tag("tutorial_segment.png") %>
-</div>
-</div>
+  <div class="hero-unit" style="padding: 15px; margin-bottom: 20px;">
+    <div class="row-fluid">
+      <div class="span9">
+        <div class="progress progress-striped">
+          <div class="bar"></div>
+        </div>
+        <div class="title"><h2>Segmenting image <%= session[:num_images_seen] %>/10</h2></div>
+        <p class="instructions-static" style="font-size:18px;">Draw boxes around blob-like cellular regions, panning around image below to find more regions. See right for examples.</p>
+        <p class="instructions-dynamic" style="font-size:18px;"></p>
+      </div>
+      <div class="span3"><%= image_tag("tutorial_segment.png") %></div>
+    </div>
+  </div>
+
+  <div id='image-map' style="height: 400px; width: auto;"></div>
+  <p><div id='controls'>
+	<div id='draw-toggle'> 
+    <button id="draw-button" class="btn btn-primary btn-large" type="button" onClick="onDrawButton()">Draw</button>
+    <% if @nextId %>
+      <a href='/annotation/segment/<%= @nextId %>'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
+    <% else %>
+      <a href='/'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
+    <% end %>
+    </div>
+  </div>
 </div>
 
-    <div id='image-map' style="height: 400px; width: auto;"></div>
-    <p><div id='controls'>
-        <div id='draw-toggle'> 
-            <button id="draw-button" class="btn btn-primary btn-large" type="button" onClick="onDrawButton()">Draw</button>
-<% if @nextId %>
-            <a href='/annotation/segment/<%= @nextId %>'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
-<% else %>
-<a href='/'><button id="submit-button" class="btn btn-secondary btn-large" type="button">Submit</button></a>
-<% end %>
-        </div>
-    </div>
-</div>
 <%= javascript_tag do %>
   var numImagesSeen = <%= session[:num_images_seen] %>;
   $('.bar').width(numImagesSeen * 10 + '%');

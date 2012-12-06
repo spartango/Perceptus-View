@@ -48,7 +48,9 @@ class AnnotationController < ApplicationController
     tile = { :tilejson => '1.0.0', :scheme => 'xyz', :tiles => ['https://s3.amazonaws.com/testconvertedimagebucketserve2/' + params[:id] + '/0/{x}/{y}'] }
     @imageId = params[:id]
     @tilejson = tile.to_json
-    @rois = ImageServer.get('/image/' + params[:id] + '/rois');
+    rois = ImageServer.get('/image/' + params[:id] + '/rois')
+    rois = rois.select { |r| r['tag'] == 'default' }
+    @rois = rois.to_json
   end
 
 end 

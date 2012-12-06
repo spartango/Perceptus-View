@@ -16,17 +16,17 @@
 <div class="bar"></div>
 </div>
 <div class="title"><h2>Labeling image <%= session[:num_images_classified] %>/10</h2></div>
-<p class="instructions-static" style="font-size:18px;">Mark each box in the image below as type E (epithelium, red box) or S (stroma, blue box). See right for type E and S examples.</p>
+<p class="instructions-static" style="font-size:18px;">Mark each box in the image below as epithelium or stroma. See right for epithelium (red) and stroma (blue) examples.</p>
 <div class="row-fluid">
-<div class="span6"><h4>Type E Regions...</h4>
+<div class="span6"><h4>Epithelium Regions...</h4>
 <ul>
 <li>are clumps of many distinct cells with nuclei</li>
 <li>tend to be darker purple</li>
 </ul>
 </div>
-<div class="span6"><h4>Type S Regions...</h4>
+<div class="span6"><h4>Stroma Regions...</h4>
 <ul>
-<li>lack distinct cells and surround type E regions</li>
+<li>lack distinct cells and surround type epithelium regions</li>
 <li>tend to be lighter pink</li>
 </ul>
 </div>
@@ -49,7 +49,7 @@
 </div>
 <div class="span11">
 <div class="alert alert-info" id="label-submit" style="line-height:25px;">
-  <p id="instructions-dynamic" style="margin: 0 0 0px;">Get started by labeling a box of your choice. See the top-right example if you need help!</p>
+  <p id="instructions-dynamic" style="margin: 0 0 0px;">Get started by labeling a box of your choice. See the top-right example if you need help! You can Submit when you all boxes are labeled.</p>
 </div>
 </div>
     </div>
@@ -57,7 +57,7 @@
 <%= javascript_tag do %>
   var numImagesSeen = <%= session[:num_images_classified] %>;
   $('.bar').width(numImagesSeen * 10 + '%');
-  var loadedRois = <%= @rois.to_json.html_safe %>;
+  var loadedRois = <%= @rois.html_safe %>;
   var imageId = "<%= @imageId %>";
   var tagOptions = ["epithelium", "stroma"];
   var firstLabel = false;
@@ -68,5 +68,7 @@
     $('#instructions-dynamic').text("Congrats! You've labeled the whole image! Submit your labels to go on.");
     $('#submit-button').removeAttr('disabled');
   }
-  setTimeout(readySubmit, 1000);
+  if (!loadedRois || loadedRois.length == 0) {
+    readySubmit();
+  }
 <% end %>

@@ -1,5 +1,8 @@
 var boxselector;
 var boxes = {};
+var numBoxes = 0;
+var classifiedIds = {};
+var numClassifiedIds = 0;
 
 // Toggles the UI state of the draw-button
 function toggleButton() {
@@ -97,6 +100,7 @@ function addTagger(roiBox) {
     
     // Create a selector 
     var selectElement = $(document.createElement('select'));
+    selectElement.width('100px');
     // Add the instructive label
     selectElement.append('<option value="" disabled="" selected="" style="display:none;">Label</option>')
     // Add each of the options
@@ -211,6 +215,15 @@ function onBoxTag(id, tag) {
                            height  : roi.get('height') });
     console.log("Tagged roi: "+newRoi);
 
+    // Add roi to list of classified rois
+    if (!(id in classifiedIds)) {
+      classifiedIds[id] = true;
+      numClassifiedIds++;
+      if (numClassifiedIds >= numBoxes) {
+        readySubmit();
+      }
+    }
+
     // Commit the change
     newRoi.save({}, { 
         success: function(roi) {
@@ -219,7 +232,14 @@ function onBoxTag(id, tag) {
     });
 }
 
-// Creates a new box selector to track a box and its various modifications
+function readySubmit() {
+    $('#label-submit').removeClass('alert-info');
+    $('#label-submit').addClass('alert-success');
+    $('#instructions-dynamic').text("Congrats! You've labeled the whole image! Submit your labels to go on.");
+    $('#submit-button').removeAttr('disabled');
+}
+
+// creates a new box selector to track a box and its various modifications
 function createBoxSelector() {
     boxselector = new wax.mm.boxselector();
     boxselector.map(map);
@@ -232,6 +252,7 @@ function loadRois() {
     // First load callback
     if(loadedRois) {
         loadedRois.map(renderROI);
+        numBoxes = loadedRois.length;
     }
     map.removeCallback('drawn', loadRois);
 }

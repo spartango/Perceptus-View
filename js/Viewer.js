@@ -120,7 +120,8 @@ function addTagger(roiBox) {
 
     // Call the onBoxTag method with right args
     selectElement.change(function(e) {
-        onBoxTag(roiBox.getId(), $(e.target).val())
+        onBoxTag(roiBox.getId(), $(e.target).val());
+        map.enableScrolling();
     });
 
     // Append the selector as a child of the selector

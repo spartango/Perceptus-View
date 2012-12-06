@@ -42,14 +42,30 @@ class AnnotationController < ApplicationController
       params[:id] = imageIds.sample
       session[:classified_image_ids] = [ params[:id] ]
     end
-    session[:num_images_classified] = (session[:classified_image_ids].length - 1) % 10 + 1
     idsLeft = imageIds - session[:classified_image_ids]
     @nextId = (idsLeft.empty?) ? false : idsLeft.sample
     tile = { :tilejson => '1.0.0', :scheme => 'xyz', :tiles => ['https://s3.amazonaws.com/testconvertedimagebucketserve2/' + params[:id] + '/0/{x}/{y}'] }
     @imageId = params[:id]
     @tilejson = tile.to_json
     rois = ImageServer.get('/image/' + params[:id] + '/rois')
-    rois = rois.select { |r| r['tag'] == 'default' }
+    rois = rois.select { |r| r['tag'] == 'segment' }
+    # distinctRois = []
+    # rois.each do |r|
+    #   incl = true
+    #   distinctRois.each do |d|
+    #     incl &&= (
+    if rois.length >= 8
+      rois = rois.sample(8);
+      session[:num_images_classified] = (session[:classified_image_ids].length - 1) % 10 + 1
+    elsif rois.length == 0
+      if !@nextId
+        redirect_to :controller => 'annotation', :action => 'classify'
+      else
+        redirect_to :controller => 'annotation', :action => 'classify', :id => @nextId
+      end
+    else
+      session[:num_images_classified] = (session[:classified_image_ids].length - 1) % 10 + 1
+    end
     @rois = rois.to_json
   end
 

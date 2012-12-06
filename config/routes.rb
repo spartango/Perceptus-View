@@ -3,6 +3,7 @@ ViewApp::Application.routes.draw do
   match 'annotation/segment/:id' => 'annotation#segment', :controller => 'annotation', :action => 'segment'
   match 'annotation/segment' => 'annotation#segment',  :controller => 'annotation', :action => 'segment'
   match 'annotation/classify/:id' => 'annotation#classify', :controller => 'annotation', :action => 'classify'
+  match 'annotation/classify' => 'annotation#classify',  :controller => 'annotation', :action => 'classify'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

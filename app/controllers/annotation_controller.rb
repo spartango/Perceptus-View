@@ -51,7 +51,7 @@ class AnnotationController < ApplicationController
     @imageId = params[:id]
     @tilejson = tile.to_json
     rois = ImageServer.get('/image/' + params[:id] + '/rois')
-    rois = rois.select { |r| r['tag'] == 'segment' && r['width'] <= 100 && r['height'] <= 100 }
+    rois = rois.select { |r| r['tag'] == 'segment' && r['width'] <= 125 && r['height'] <= 125 }
     # distinctRois = []
     # rois.each do |r|
     #   incl = true

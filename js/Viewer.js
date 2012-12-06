@@ -31,6 +31,7 @@ function updateBoxListing(owner, box) {
     obj.text(boxToString(box));
 }
 
+
 // ------------------------------------------------------------------------
 // ROI Drawing 
 
@@ -252,11 +253,11 @@ function createBoxSelector() {
 
 function loadRois() {
     // First load callback
+    map.removeCallback('drawn', loadRois);
     if(loadedRois) {
         loadedRois.map(renderROI);
         numBoxes = loadedRois.length;
     }
-    map.removeCallback('drawn', loadRois);
 }
 
 // Sets up the map given tile json describing it, and attaches it to the dom

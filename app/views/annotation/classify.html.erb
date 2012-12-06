@@ -55,6 +55,7 @@
 
 <%= javascript_tag do %>
   var numImagesSeen = <%= session[:num_images_classified] %>;
+  var sessionId = '<%= session[:session_id] %>';
   $('.bar').width(numImagesSeen * 10 + '%');
   var loadedRois = <%= @rois.html_safe %>;
   var imageId = "<%= @imageId %>";

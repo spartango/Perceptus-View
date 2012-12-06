@@ -105,7 +105,7 @@ function addTagger(roiBox) {
     selectElement.append('<option value="" disabled="" selected="" style="display:none;">Label</option>')
     // Add each of the options
     tagOptions.map(function(tag) {
-        selectElement.append('<option value='+tag+'>'+tag+'</option>');
+        selectElement.append('<option value='+tag+'_'+sessionId+'>'+tag+'</option>');
     });
 
     // Setup event handling

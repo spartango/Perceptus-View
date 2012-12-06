@@ -1,5 +1,8 @@
 var boxselector;
 var boxes = {};
+var numBoxes = 0;
+var classifiedIds = {};
+var numClassifiedIds = 0;
 
 // Toggles the UI state of the draw-button
 function toggleButton() {
@@ -97,6 +100,7 @@ function addTagger(roiBox) {
     
     // Create a selector 
     var selectElement = $(document.createElement('select'));
+    selectElement.width('100px');
     // Add the instructive label
     selectElement.append('<option value="" disabled="" selected="" style="display:none;">Label</option>')
     // Add each of the options
@@ -201,20 +205,42 @@ function onBoxUpdate(id, box) {
 function onBoxTag(id, tag) {
     // Find this box
     var roi = boxes[id];
-    console.log("Tagged roi: "+roi);
 
-    // Set the tag
-    roi.set({tag : tag});
+    // Copy roi with new tag to avoid overwriting
+    var newRoi = new ROI({ imageId : roi.get('imageId'), 
+                           tag     : tag,
+                           x       : roi.get('x'),
+                           y       : roi.get('y'),
+                           width   : roi.get('width'),
+                           height  : roi.get('height') });
+    console.log("Tagged roi: "+newRoi);
+
+    // Add roi to list of classified rois
+    if (!(id in classifiedIds)) {
+      classifiedIds[id] = true;
+      numClassifiedIds++;
+      if (numClassifiedIds >= numBoxes) {
+        readySubmit();
+      }
+    }
 
     // Commit the change
-    roi.save({}, { 
+    newRoi.save({}, { 
         success: function(roi) {
             console.log("Updated "+roi.get("id"));   
         }
     });
 }
 
-// Creates a new box selector to track a box and its various modifications
+// toggles submit button to be enabled and alerts user to move on
+function readySubmit() {
+    $('#label-submit').removeClass('alert-info');
+    $('#label-submit').addClass('alert-success');
+    $('#instructions-dynamic').text("Congrats! You've labeled the whole image! Submit your labels to go on.");
+    $('#submit-button').removeAttr('disabled');
+}
+
+// creates a new box selector to track a box and its various modifications
 function createBoxSelector() {
     boxselector = new wax.mm.boxselector();
     boxselector.map(map);
@@ -227,6 +253,7 @@ function loadRois() {
     // First load callback
     if(loadedRois) {
         loadedRois.map(renderROI);
+        numBoxes = loadedRois.length;
     }
     map.removeCallback('drawn', loadRois);
 }
@@ -242,4 +269,4 @@ function initViewer(tilejson) {
     map.coordLimits = [ new MM.Coordinate(0,0,3), new MM.Coordinate(3,5,3) ];
     map.coordinate = new MM.Coordinate(0,0,3);
     map.requestRedraw();
-}
+};

@@ -101,7 +101,7 @@ function addTagger(roiBox) {
     
     // Create a selector 
     var selectElement = $(document.createElement('select'));
-    selectElement.width('100px');
+    selectElement.width('20px');
     // Add the instructive label
     selectElement.append('<option value="" disabled="" selected="" style="display:none;">Label</option>')
     // Add each of the options
@@ -123,6 +123,7 @@ function addTagger(roiBox) {
     selectElement.change(function(e) {
         onBoxTag(roiBox.getId(), $(e.target).val());
         map.enableScrolling();
+        selectElement.width('100px');
     });
 
     // Append the selector as a child of the selector

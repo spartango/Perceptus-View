@@ -62,7 +62,7 @@
   $('.bar').width(numImagesSeen * 10 + '%');
   var loadedRois = <%= @rois.html_safe %>;
   var imageId = "<%= @imageId %>";
-  var tagOptions = ["epithelium", "stroma"];
+  var tagOptions = ["epithelium", "stroma", "unknown"];
   var firstLabel = false;
   initViewer( <%= @tilejson.html_safe %> );
   if (!loadedRois || loadedRois.length == 0) {

@@ -13,7 +13,7 @@ class HomeController < ApplicationController
   	imageIds = ImageServer.get('/user/nkivgh/images')
   	@imageMetadata = Hash.new
   	imageIds.each do |imageId| 
-  	  @imageMetadata[imageId] = ImageServer.get('/rawimage/' + imageId)
+  	  @imageMetadata[imageId] = ImageServer.get('/rawimage/' + imageId)['filename']
   	end
   end
 end

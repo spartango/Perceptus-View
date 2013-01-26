@@ -2,6 +2,7 @@
 <%= javascript_include_tag "http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js" %>
 
 <%= stylesheet_link_tag "http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css" %>
+<%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
 
 <style>
     #map-ui {
@@ -42,7 +43,7 @@
 
     #output {
       position:absolute;
-      top:10px;
+      top:50px;
       right:10px;
       padding:10px;
       background:#fff;
@@ -152,6 +153,12 @@
 
 </style>
 
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Perceptus</a>
+  </div>
+</div>
+
 <div id='output'>
     click: <code id='click'></code><br />
     mousemove: <code id='mousemove'></code><br />
@@ -208,46 +215,46 @@
   map = mapbox.map('map');
 
   map.setZoomRange(3, 3);
-  map.centerzoom(map.pointLocation(new MM.Point(70, 0)), 3);
+  map.centerzoom(map.pointLocation(new MM.Point(130, 0)), 3);
 
-	  <% @layers.each do |layer, url| %>
-	  	var layer = new MM.TemplatedLayer('<%= url %>');
-	  	layer.name = '<%= layer %>';
-	  	map.addLayer(layer);
-	  <% end %>
+  <% @layers.each do |layer, url| %>
+  	var layer = new MM.TemplatedLayer('<%= url %>');
+  	layer.name = '<%= layer %>';
+  	map.addLayer(layer);
+  <% end %>
 
-	  var color = ["", "black", "green", "red"];
+  var color = ["", "black", "green", "red"];
 
-	  var layers = document.getElementById('map-ui');
+  var layers = document.getElementById('map-ui');
 
-	  for (var i = 1; i < map.getLayers().length; i++) {
-	      var l = map.getLayerAt(i);
-	      l.parent.style.opacity = .3;
-	      l.parent.style.background = color[i];
-	      var n = l.name;
-	      l.disable();
-	      var item = document.createElement('li');
-	      var layer = document.createElement('a');
-	          layer.href = '#';
-	          layer.id = n; 
-	          layer.className = ''; 
-	          layer.innerHTML = 'Layer ' + n;
+  for (var i = 1; i < map.getLayers().length; i++) {
+      var l = map.getLayerAt(i);
+      l.parent.style.opacity = .3;
+      l.parent.style.background = color[i];
+      var n = l.name;
+      l.disable();
+      var item = document.createElement('li');
+      var layer = document.createElement('a');
+          layer.href = '#';
+          layer.id = n; 
+          layer.className = ''; 
+          layer.innerHTML = 'Layer ' + n;
 
-	      layer.onclick = function(e) {
-	          for (var i = 1; i < map.getLayers().length; i++) {
-	            if (map.getLayerAt(i).name !== this.id && map.getLayerAt(i).enabled) {
-	              map.getLayerAt(i).disable();
-	            }
-	          }
-	          $('#map-ui a').map(function(i, obj) {
-	            obj.className = '';
-	          });
-	          map.getLayer(this.id).enabled ? map.getLayer(this.id).disable() : map.getLayer(this.id).enable();
-	          this.className = map.getLayer(this.id).enabled ? 'active' : '';
-	      };
-	      item.appendChild(layer);
-	      layers.appendChild(item);
-	  }
+      layer.onclick = function(e) {
+          for (var i = 1; i < map.getLayers().length; i++) {
+            if (map.getLayerAt(i).name !== this.id && map.getLayerAt(i).enabled) {
+              map.getLayerAt(i).disable();
+            }
+          }
+          $('#map-ui a').map(function(i, obj) {
+            obj.className = '';
+          });
+          map.getLayer(this.id).enabled ? map.getLayer(this.id).disable() : map.getLayer(this.id).enable();
+          this.className = map.getLayer(this.id).enabled ? 'active' : '';
+      };
+      item.appendChild(layer);
+      layers.appendChild(item);
+  }
 
   boxselector = wax.mm.boxselector();
   boxselector.map(map);

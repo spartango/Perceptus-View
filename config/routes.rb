@@ -1,9 +1,7 @@
-ViewApp::Application.routes.draw do
+PerceptusView::Application.routes.draw do
+  match 'image/:id' => 'image#view', :controller => 'image', :action => 'view'
 
-  match 'annotation/segment/:id' => 'annotation#segment', :controller => 'annotation', :action => 'segment'
-  match 'annotation/segment' => 'annotation#segment',  :controller => 'annotation', :action => 'segment'
-  match 'annotation/classify/:id' => 'annotation#classify', :controller => 'annotation', :action => 'classify'
-  match 'annotation/classify' => 'annotation#classify',  :controller => 'annotation', :action => 'classify'
+  get "home/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -18,8 +16,6 @@ ViewApp::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
-  resources :roi
 
   # Sample resource route with options:
   #   resources :products do
@@ -56,7 +52,7 @@ ViewApp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

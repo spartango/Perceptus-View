@@ -1,0 +1,268 @@
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" %>
+<%= javascript_include_tag "http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js" %>
+
+<%= stylesheet_link_tag "http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css" %>
+
+<style>
+    #map-ui {
+      position:absolute;
+      top:10px;left:10px;
+      list-style:none;
+      margin:0;padding:0;
+      z-index:100;
+    }
+    #map-ui a {
+      font:normal 13px/18px 'Helvetica Neue',Helvetica,sans-serif;
+      background:#FFF;
+      color:#3C4E5A;
+      display:block;
+      margin:0;padding:0;
+      border:1px solid #BBB;
+      border-bottom-width:0;
+      min-width:138px;
+      padding:10px;
+      text-decoration:none;
+    }
+    #map-ui a:hover { background:#ECF5FA; }
+    #map-ui li:last-child a {
+      border-bottom-width:1px;
+      -webkit-border-radius:0 0 3px 3px;
+              border-radius:0 0 3px 3px;
+    }
+    #map-ui li:first-child a {
+      -webkit-border-radius:3px 3px 0 0;
+              border-radius:3px 3px 0 0;
+    }
+    #map-ui a.active {
+      background:#3887BE;
+      border-color:#3887BE;
+      border-top-color:#FFF;
+      color:#FFF;
+    }
+
+    #output {
+      position:absolute;
+      top:10px;
+      right:10px;
+      padding:10px;
+      background:#fff;
+      z-index:100;
+    }
+
+.boxselector-box {
+  border-color: green;
+  border-width: 3px;
+}    
+
+.wrapper-dropdown-2 {
+    /* Size and position */
+    position: relative; /* Enable absolute positionning for children and pseudo elements */
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px 15px;
+
+    /* Styles */
+    background: #fff;
+    border-left: 5px solid grey;
+    cursor: pointer;
+    outline: none;
+}
+
+.wrapper-dropdown-2:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -3px;
+}
+
+.wrapper-dropdown-2 .dropdown {
+  /* Size & position */
+    position: absolute;
+    top: 100%;
+    left: -5px;
+    right: 0px;
+
+    /* Styles */
+    background: white;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    list-style: none;
+
+    /* Hiding */
+    opacity: 0;
+}
+
+.wrapper-dropdown-2 .dropdown {
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper-dropdown-2 .dropdown li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    border-left: 5px solid;
+    padding: 10px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.wrapper-dropdown-2 .dropdown li:nth-child(1) a { 
+    border-left-color: purple;
+}
+
+.wrapper-dropdown-2 .dropdown li:nth-child(2) a {
+    border-left-color: pink;
+}
+
+.wrapper-dropdown-2 .dropdown li:nth-child(3) a {
+    border-left-color: white;
+}
+
+.wrapper-dropdown-2 .dropdown li i {
+    margin-right: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+/* Hover state */
+
+.wrapper-dropdown-2 .dropdown li:hover a {
+    color: grey;
+}
+
+/* Active state */
+
+.wrapper-dropdown-2.active:after {
+    border-width: 0 6px 6px 6px;
+}
+
+.wrapper-dropdown-2.active .dropdown {
+    opacity: 1;
+}
+
+</style>
+
+<div id='output'>
+    click: <code id='click'></code><br />
+    mousemove: <code id='mousemove'></code><br />
+</div>
+<ul id='map-ui'></ul>
+<div id='map' style="height:700px;"></div>
+<div id="dd" class="wrapper-dropdown-2 active"> Choose Label For Box
+   <ul class="dropdown">
+        <li id='Epithelium'><a href="#"><i class="icon-twitter icon-large"></i>Epithelium</a></li>
+        <li id='Stroma'><a href="#"><i class="icon-github icon-large"></i>Stroma</a></li>
+        <li id='White'><a href="#"><i class="icon-github icon-large"></i>White</a></li>
+    </ul>
+</div>
+
+<script>
+  function addTaggerDiv() {
+    // Setup event handling
+    selectElement.mousedown(function(e) {
+      // this.focus();
+      MM.cancelEvent(e);
+      // e.stopPropagation()
+    });
+  }
+
+  function DropDown(el) {
+      this.dd = el;
+      this.initEvents();
+  }
+
+  DropDown.prototype = {
+      initEvents : function() {
+          var obj = this;
+
+          obj.dd.find('li').on('click', function(event) {
+            // Send Information To Server
+            if (boxselector.extent()) {
+              console.log(this.id + " " + boxselector.extent());
+            } else {
+              console.log("No Box Selected");
+            }
+            boxselector.remove();
+              boxselector = wax.mm.boxselector();
+              boxselector.map(map);
+              boxselector.add()
+              boxselector.addCallback('change', function(owner, box) {
+                $('#dd').addClass('active');   
+              });
+          });
+      }
+  }
+
+  var dd = new DropDown($('#dd'));
+
+  map = mapbox.map('map');
+
+  map.setZoomRange(3, 3);
+  map.centerzoom(map.pointLocation(new MM.Point(70, 0)), 3);
+
+	  <% @layers.each do |layer, url| %>
+	  	var layer = new MM.TemplatedLayer('<%= url %>');
+	  	layer.name = '<%= layer %>';
+	  	map.addLayer(layer);
+	  <% end %>
+
+	  var color = ["", "black", "green", "red"];
+
+	  var layers = document.getElementById('map-ui');
+
+	  for (var i = 1; i < map.getLayers().length; i++) {
+	      var l = map.getLayerAt(i);
+	      l.parent.style.opacity = .3;
+	      l.parent.style.background = color[i];
+	      var n = l.name;
+	      l.disable();
+	      var item = document.createElement('li');
+	      var layer = document.createElement('a');
+	          layer.href = '#';
+	          layer.id = n; 
+	          layer.className = ''; 
+	          layer.innerHTML = 'Layer ' + n;
+
+	      layer.onclick = function(e) {
+	          for (var i = 1; i < map.getLayers().length; i++) {
+	            if (map.getLayerAt(i).name !== this.id && map.getLayerAt(i).enabled) {
+	              map.getLayerAt(i).disable();
+	            }
+	          }
+	          $('#map-ui a').map(function(i, obj) {
+	            obj.className = '';
+	          });
+	          map.getLayer(this.id).enabled ? map.getLayer(this.id).disable() : map.getLayer(this.id).enable();
+	          this.className = map.getLayer(this.id).enabled ? 'active' : '';
+	      };
+	      item.appendChild(layer);
+	      layers.appendChild(item);
+	  }
+
+  boxselector = wax.mm.boxselector();
+  boxselector.map(map);
+  boxselector.add()
+  boxselector.addCallback('change', function(owner, box) {
+    $('#dd').addClass('active');   
+  });
+  MM.addEvent(map.parent, 'mousemove', function(e) {
+      var px = MM.getMousePoint(e, map);
+      mousemove.innerHTML = 'px: ' + px.toString() + ', lat/lon ' +
+          map.pointLocation(px).toString();
+  });
+  MM.addEvent(map.parent, 'click', function(e) {
+      var px = MM.getMousePoint(e, map);
+      click.innerHTML = 'px: ' + px.toString() + ', lat/lon ' +
+          map.pointLocation(px).toString();
+  });
+</script>

@@ -1,2 +1,0 @@
-module RoiHelper
-end

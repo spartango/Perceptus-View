@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ViewApp::Application.load_tasks
+PerceptusView::Application.load_tasks

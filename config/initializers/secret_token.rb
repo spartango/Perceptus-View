@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-ViewApp::Application.config.secret_token = '6f5a4b0899fccd4ab77918f4a980bb11f0ac9eaab9ce15a764ff72795ab8e8909dc4f9e3866b66fc5ff14b5739370582fd778644a2133b9a2596b9041b5a2486'
+PerceptusView::Application.config.secret_token = 'c6d8f11640e4072c9ee43e346edd280c5e6369a89aba88ef574fccc3a669210a4d89c2ea1934583130d1b4990e0d4ce998849ece7d4ed93073256dde51c805a6'

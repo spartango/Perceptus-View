@@ -1,5 +1,8 @@
 <%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" %>
+<%= javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js" %>
 <%= javascript_include_tag "http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js" %>
+<%= javascript_include_tag "Models" %>
 
 <%= stylesheet_link_tag "http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css" %>
 <%= stylesheet_link_tag "http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.css" %>
@@ -155,7 +158,10 @@
 
 <div class="navbar">
   <div class="navbar-inner">
-    <a class="brand" href="#">Perceptus</a>
+    <a class="brand" href="home/index">Perceptus</a>
+    <ul class="nav">
+      <li><a href="home/index"></a></li>
+    </ul>
   </div>
 </div>
 
@@ -174,6 +180,9 @@
 </div>
 
 <script>
+  maxZoom = 9;
+  minZoom = 5;
+
   function addTaggerDiv() {
     // Setup event handling
     selectElement.mousedown(function(e) {
@@ -196,16 +205,28 @@
             // Send Information To Server
             if (boxselector.extent()) {
               console.log(this.id + " " + boxselector.extent());
+              var boxTopLeft     = map.locationPoint(boxselector.extent()[0]);
+              var boxBottomRight = map.locationPoint(boxselector.extent()[1]);
+              var imageTopLeft = map.coordinatePoint(new MM.Coordinate(0, 0, 0));
+              var factor = Math.pow(2, maxZoom - map.zoom());
+              var boxPoint = new MM.Point(Math.abs(boxTopLeft.x - imageTopLeft.x) * factor, Math.abs(boxTopLeft.y - imageTopLeft.y) * factor);
+              // Build the model
+              var roi = new ROI({ imageId : imageId,
+                                  tag     : this.id, 
+                                  x       : boxPoint.x,
+                                  y       : boxPoint.y,
+                                  width   : (boxBottomRight.x - boxTopLeft.x) * factor,
+                                  height  : (boxBottomRight.y - boxTopLeft.y) * factor,
+                                  confidence : 1.0});
+              roi.save({}, {
+                sucess: function(roi) {
+                  console.log("Saved " + roi.get("id"));
+                }
+              });
+              // console.log(roi.attributes);
             } else {
               console.log("No Box Selected");
             }
-            boxselector.remove();
-              boxselector = wax.mm.boxselector();
-              boxselector.map(map);
-              boxselector.add()
-              boxselector.addCallback('change', function(owner, box) {
-                $('#dd').addClass('active');   
-              });
           });
       }
   }
@@ -214,11 +235,14 @@
 
   map = mapbox.map('map');
 
-  map.setZoomRange(3, 3);
-  map.centerzoom(map.pointLocation(new MM.Point(130, 0)), 3);
+  map.setZoomRange(minZoom, maxZoom);
+  map.centerzoom(map.pointLocation(new MM.Point(0, 0)), minZoom);
 
+  imageId = '<%= @imageId %>';
+
+  var layer;
   <% @layers.each do |layer, url| %>
-  	var layer = new MM.TemplatedLayer('<%= url %>');
+  	layer = new MM.TemplatedLayer('<%= url %>');
   	layer.name = '<%= layer %>';
   	map.addLayer(layer);
   <% end %>

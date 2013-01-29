@@ -197,6 +197,52 @@
       this.initEvents();
   }
 
+  function getROI(extent) {
+    // Getting the box size
+    var boxTopLeft     = map.locationPoint(extent[0]);
+    var boxBottomRight = map.locationPoint(extent[1]);
+
+    // Getting the Image's Top Left Corner
+    var imageTopLeft = map.coordinatePoint(new MM.Coordinate(0, 0, map.zoom()));
+
+    // Get the total number of pixels in a side of an image
+    var pixelsSide = Math.pow(2, map.zoom()) * 256;
+
+    // Find the location of the image's topLeft pixel an image
+    imageTopLeft = new MM.Point(imageTopLeft.x % pixelsSide, imageTopLeft.y % pixelsSide);
+
+    // Get the factor we need to zoom in all the way
+    var factor = Math.pow(2, maxZoom - map.zoom());
+
+    // Get the actual Point X:
+    // There are two cases: 
+    // If the image pixel location is greater:
+    // Then we need to think about wrapping
+    // If it isn't
+    // Then we are fine
+    var PointX;
+    if (boxTopLeft.x < imageTopLeft.x) {
+      PointX = (boxTopLeft.x + (pixelsSide - imageTopLeft.x));
+    } else {
+      PointX = boxTopLeft.x - imageTopLeft.x;
+    }
+    var PointY;
+    if (boxTopLeft.y < imageTopLeft.y) {
+      PointY = (boxTopLeft.y + (pixelsSide - imageTopLeft.y));
+    } else {
+      PointY = boxTopLeft.y - imageTopLeft.y;
+    }
+
+    // Build the model
+    return new ROI({ imageId : imageId,
+                        tag     : this.id, 
+                        x       : PointX * factor,
+                        y       : PointY * factor,
+                        width   : (boxBottomRight.x - boxTopLeft.x) * factor,
+                        height  : (boxBottomRight.y - boxTopLeft.y) * factor,
+                        confidence : 1.0});
+  }
+
   DropDown.prototype = {
       initEvents : function() {
           var obj = this;
@@ -205,25 +251,13 @@
             // Send Information To Server
             if (boxselector.extent()) {
               console.log(this.id + " " + boxselector.extent());
-              var boxTopLeft     = map.locationPoint(boxselector.extent()[0]);
-              var boxBottomRight = map.locationPoint(boxselector.extent()[1]);
-              var imageTopLeft = map.coordinatePoint(new MM.Coordinate(0, 0, 0));
-              var factor = Math.pow(2, maxZoom - map.zoom());
-              var boxPoint = new MM.Point(Math.abs(boxTopLeft.x - imageTopLeft.x) * factor, Math.abs(boxTopLeft.y - imageTopLeft.y) * factor);
-              // Build the model
-              var roi = new ROI({ imageId : imageId,
-                                  tag     : this.id, 
-                                  x       : boxPoint.x,
-                                  y       : boxPoint.y,
-                                  width   : (boxBottomRight.x - boxTopLeft.x) * factor,
-                                  height  : (boxBottomRight.y - boxTopLeft.y) * factor,
-                                  confidence : 1.0});
+              var roi = getROI(boxselector.extent());
               roi.save({}, {
                 sucess: function(roi) {
                   console.log("Saved " + roi.get("id"));
                 }
               });
-              // console.log(roi.attributes);
+              console.log(roi.attributes);
             } else {
               console.log("No Box Selected");
             }
